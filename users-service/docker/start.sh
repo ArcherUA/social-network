@@ -2,8 +2,8 @@
 
 set -e
 
-while ! exec 6<>/dev/tcp/${NETWORK_DB_HOST}/${NETWORK_DB_PORT}; do
-  echo "Trying to connect to DB ${NETWORK_DB_HOST}/${NETWORK_DB_PORT}"
+while ! exec 6<>/dev/tcp/${USERS_DB_HOST}/${USERS_DB_PORT}; do
+  echo "Trying to connect to DB ${USERS_DB_HOST}/${USERS_DB_PORT}"
   sleep 10
   echo "Retrying..."
 done
