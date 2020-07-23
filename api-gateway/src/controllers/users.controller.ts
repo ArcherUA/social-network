@@ -1,31 +1,34 @@
-import {Controller, Post, Get} from "@nestjs/common";
+import { Controller, Post, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 @ApiUseTags('users')
 export class UsersController {
-
+    constructor(private readonly UsersService: UsersService) {
+    }
     @Post('newUser')
     @ApiOperation({title: 'Create new user'})
     async newUser() {
-        return undefined
+        return this.UsersService.newUser();
     }
     @Get('user')
     @ApiOperation({title: 'Get user'})
     async getUser() {
-        return undefined
+        return this.UsersService.getUser();
     }
     @Post('updateUserData')
     @ApiOperation({title: 'Update user data'})
     async updateUserData() {
-        return undefined
+        return this.UsersService.updateUserData();
     }
     @Post('deleteUser')
     @ApiOperation({title: 'Delete user'})
     async deleteUser() {
-        return undefined
+        return this.UsersService.deleteUser();
     }
-    
+
 
 
 
