@@ -29,5 +29,6 @@ services:
       PGDATA: /var/lib/postgresql/data/network_db_data
     ports:
       - '${NETWORK_DB_PORT}:${NETWORK_DB_PORT}'
+    command: -p ${NETWORK_DB_PORT}
 volumes:
   network_db: null
