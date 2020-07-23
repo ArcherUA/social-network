@@ -1,22 +1,67 @@
 version: '3'
 services:
-  social_network:
+  api_gateway:
     image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
-    container_name: social_network
-    hostname: social_network
+    container_name: api_gateway
+    hostname: api_gateway
     env_file: .env
     volumes:
-      - './social-network:/var/www/api'
+      - './api-gateway:/var/www/api'
     build:
       context: .
-      dockerfile: ./social-network/Dockerfile
+      dockerfile: ./api-gateway/Dockerfile
     ports:
-      - '${NETWORK_PORT}:${NETWORK_PORT}'
+      - '${API_GATEWAY_PORT}:${API_GATEWAY_PORT}'
       - '${DEBUG_API_PORT}:9229'
     depends_on:
       - network_db
-  network_db:
-    container_name: network_db
+  messages_service:
+    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
+    container_name: messages_service
+    hostname: messages_service
+    env_file: .env
+    volumes:
+      - './messages-service:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./messages-service/Dockerfile
+    ports:
+      - '${MESSAGES_SERVICE_PORT}:${MESSAGES_SERVICE_PORT}'
+      - '${DEBUG_API_PORT}:9229'
+    depends_on:
+      - network_db
+  users_service:
+    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
+    container_name: users_service
+    hostname: users_service
+    env_file: .env
+    volumes:
+      - './users-service:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./users-service/Dockerfile
+    ports:
+      - '${USERS_SERVICE_PORT}:${USERS_SERVICE_PORT}'
+      - '${DEBUG_API_PORT}:9229'
+    depends_on:
+      - network_db
+  posts_service:
+    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
+    container_name: posts_service
+    hostname: posts_service
+    env_file: .env
+    volumes:
+      - './posts-service:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./posts-service/Dockerfile
+    ports:
+      - '${POSTS_SERVICE_PORT}:${POSTS_SERVICE_PORT}'
+      - '${DEBUG_API_PORT}:9229'
+    depends_on:
+      - network_db
+  messages_db:
+    container_name: messages_db
     hostname: '${NETWORK_DB_HOST}'
     image: 'postgres:12.2-alpine'
     restart: always
@@ -32,3 +77,20 @@ services:
     command: -p ${NETWORK_DB_PORT}
 volumes:
   network_db: null
+  network_db:
+    container_name: network_db
+    hostname: '${NETWORK_DB_HOST}'
+    image: 'postgres:12.2-alpine'
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: '${NETWORK_DB_USER}'
+      POSTGRES_PASSWORD: '${NETWORK_DB_PASSWORD}'
+      POSTGRES_DB: '${NETWORK_DB_NAME}'
+      POSTGRES_PORT: '${NETWORK_DB_PORT}'
+      PGDATA: /var/lib/postgresql/data/network_db_data
+    ports:
+      - '${NETWORK_DB_PORT}:${NETWORK_DB_PORT}'
+    command: -p ${NETWORK_DB_PORT}
+  volumes:
+    network_db: null
