@@ -1,0 +1,33 @@
+version: '3'
+services:
+  social_network:
+    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
+    container_name: social_network
+    hostname: social_network
+    env_file: .env
+    volumes:
+      - './social-network:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./social-network/Dockerfile
+    ports:
+      - '${NETWORK_PORT}:${NETWORK_PORT}'
+      - '${DEBUG_API_PORT}:9229'
+    depends_on:
+      - network_db
+  network_db:
+    container_name: network_db
+    hostname: '${NETWORK_DB_HOST}'
+    image: 'postgres:12.2-alpine'
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: '${NETWORK_DB_USER}'
+      POSTGRES_PASSWORD: '${NETWORK_DB_PASSWORD}'
+      POSTGRES_DB: '${NETWORK_DB_NAME}'
+      POSTGRES_PORT: '${NETWORK_DB_PORT}'
+      PGDATA: /var/lib/postgresql/data/network_db_data
+    ports:
+      - '${NETWORK_DB_PORT}:${NETWORK_DB_PORT}'
+volumes:
+  network_db: null

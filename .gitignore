@@ -1,0 +1,5 @@
+.env
+nfs/*
+instanceConfig.json
+/test_multiinstance_files/*
+!/test_multiinstance_files/instanceConfig_n.json.default
