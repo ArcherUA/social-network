@@ -60,6 +60,23 @@ services:
       - '${DEBUG_API_PORT}:9229'
     depends_on:
       - network_db
+  rabbit_service:
+    image: 'rabbitmq:3.6.6-management'
+    container_name: rabbit_service
+    hostname: rabbit_service
+    env_file: .env
+    volumes:
+      - './data:/var/lib/rabbitmq'
+      - './data/logs:/var/log/rabbitmq'
+    ports:
+      - '4369:4369'
+      - '5672:5672'
+      - '15672:15672'
+      - '25672:25672'
+      - '35197:35197'
+    environment:
+      - RABBITMQ_USE_LONGNAME=true
+      - RABBITMQ_LOGS="/var/log/rabbitmq/rabbit.log"
   network_db:
     container_name: network_db
     hostname: '${NETWORK_DB_HOST}'
