@@ -17,6 +17,7 @@ import { Socket, Server } from 'socket.io';
 import { MessagesEventEnums } from '../common/enums/messages.event.enums'
 import { Injectable, Inject } from '@nestjs/common';
 
+const log = new Log(__filename);
 
 @Injectable()
 @WebSocketGateway(+WEBSOCKET_PORT, task_room_options)
@@ -26,7 +27,6 @@ export class MessagingGateway implements OnGatewayConnection, OnGatewayDisconnec
     private readonly START = 'MessagingGateway started';
 
     constructor(
-        @Inject(forwardRef(() => TaskService))
         private readonly taskService: TaskService,
     ) {
         log.info(this.START, {
