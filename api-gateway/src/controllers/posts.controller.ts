@@ -6,8 +6,9 @@ import { PostsService } from '../services/posts.service';
 @Controller('posts')
 @ApiUseTags('posts')
 export class PostsController {
-    constructor(private readonly PostsService: PostsService) {
-    }
+
+    constructor(private readonly PostsService: PostsService) {}
+
     @Post('newPost')
     @ApiOperation({title: 'Create new post'})
     async newPost() {

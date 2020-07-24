@@ -6,8 +6,9 @@ import { UsersService } from '../services/users.service';
 @Controller('users')
 @ApiUseTags('users')
 export class UsersController {
-    constructor(private readonly UsersService: UsersService) {
-    }
+
+    constructor(private readonly UsersService: UsersService) {}
+
     @Post('newUser')
     @ApiOperation({title: 'Create new user'})
     async newUser() {
