@@ -24,6 +24,7 @@
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/typeorm": "^7.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
@@ -54,7 +55,8 @@
     "ts-node": "^8.6.2",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "typeorm": "^0.2.24"
   },
   "jest": {
     "moduleFileExtensions": [

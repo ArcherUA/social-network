@@ -4,7 +4,7 @@ import { envSchema } from './required-env.config';
 const {
     NODE_ENV,
 
-    API_PORT,
+    API_GATEWAY_PORT,
     API_HOST,
 
     WEBSOCKET_PORT,
@@ -19,7 +19,7 @@ const {
 export {
     NODE_ENV,
 
-    API_PORT,
+    API_GATEWAY_PORT,
     API_HOST,
 
     WEBSOCKET_PORT,
