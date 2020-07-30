@@ -5,12 +5,12 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
         .valid(['development', 'production', 'local', 'debug'])
         .required(),
 
-    API_GATEWAY_PORT: Joi.number().default(3001),
+    API_PORT: Joi.number().default(3001),
     API_HOST: Joi.string().default('api'),
 
     WEBSOCKET_PORT: Joi.number().default(3002),
 
-    DISTRIBUTOR_HOST: Joi.string().default('distributor'),
-    DISTRIBUTOR_PORT: Joi.number().default(6379),
+    RMQ_DISTRIBUTOR_HOST: Joi.string().default('rabbit_service'),
+    RMQ_DISTRIBUTOR_PORT: Joi.number().default(5672),
     MEDIA_STORAGE_PATH: Joi.string(),
 });

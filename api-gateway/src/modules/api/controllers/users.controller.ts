@@ -11,7 +11,7 @@ export class UsersController {
 
     @Post('new-user')
     @ApiOperation({title: 'Create new user'})
-    async newUser() {
+    async register() {
         return this.UsersService.register();
     }
     @Get('user')
