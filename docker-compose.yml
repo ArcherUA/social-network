@@ -11,7 +11,7 @@ services:
       context: .
       dockerfile: ./api-gateway/Dockerfile
     ports:
-      - '${API_GATEWAY_PORT}:${API_GATEWAY_PORT}'
+      - '${API_PORT}:${API_PORT}'
   messages_service:
     image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: messages_service

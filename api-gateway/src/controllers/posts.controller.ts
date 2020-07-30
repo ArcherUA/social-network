@@ -1,5 +1,6 @@
 import { Controller, Get, Post } from "@nestjs/common";
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 
 import { PostsService } from '../services/posts.service';
 
@@ -9,49 +10,49 @@ export class PostsController {
 
     constructor(private readonly PostsService: PostsService) {}
 
-    @Post('newPost')
+    @Post('new-post')
     @ApiOperation({title: 'Create new post'})
     async newPost() {
-        return this.PostsService.newPost()
+        return await this.PostsService.newPost()
     }
-    @Post('editPost')
+    @Post('edit-post')
     @ApiOperation({title: 'Edit post'})
     async editPost() {
-        return this.PostsService.editPost()
+        return await this.PostsService.editPost()
     }
-    @Post('deletePost')
+    @Post('delete-post')
     @ApiOperation({title: 'Delete post'})
     async deletePost() {
-        return this.PostsService.deletePost()
+        return await this.PostsService.deletePost()
     }
     @Get('post')
     @ApiOperation({title: 'Get post'})
     async getPost() {
-        return this.PostsService.getPost()
+        return await this.PostsService.getPost()
     }
-    @Post('addComment')
+    @Post('add-comment')
     @ApiOperation({title: 'Add comment'})
     async addComment() {
-        return this.PostsService.addComment()
+        return await this.PostsService.addComment()
     }
-    @Post('deleteComment')
+    @Post('delete-comment')
     @ApiOperation({title: 'Delete comment'})
     async deleteComment() {
-        return this.PostsService.deleteComment()
+        return await this.PostsService.deleteComment()
     }
-    @Post('editComment')
+    @Post('edit-comment')
     @ApiOperation({title: 'Edit comment'})
     async editComment() {
-        return  this.PostsService.editComment()
+        return  await this.PostsService.editComment()
     }
     @Post('like')
     @ApiOperation({title: 'Like post'})
     async likePost() {
-        return this.PostsService.likePost()
+        return await this.PostsService.likePost()
     }
-    @Get('getLikeList')
+    @Get('get-like-list')
     @ApiOperation({title: 'Get like list'})
     async getLikeList() {
-        return this.PostsService.getLikeList()
+        return await this.PostsService.getLikeList()
     }
 }

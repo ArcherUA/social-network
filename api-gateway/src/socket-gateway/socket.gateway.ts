@@ -1,60 +1,60 @@
-import {
-    WebSocketGateway,
-    OnGatewayConnection,
-    OnGatewayDisconnect,
-    SubscribeMessage,
-    WebSocketServer
-} from '@nestjs/websockets';
-
-import { Log } from '@uk/log';
-import { Socket, Server } from 'socket.io';
+// import {
+//     WebSocketGateway,
+//     OnGatewayConnection,
+//     OnGatewayDisconnect,
+//     SubscribeMessage,
+//     WebSocketServer
+// } from '@nestjs/websockets';
+//
+// import { Log } from '@uk/log';
+// import { Socket, Server } from 'socket.io';
 // import {
 //     WEBSOCKET_PORT,
 //     CHUNKS_ROOM,
 //     TASK_ROOM,
-// } from '../../config';
-
-import { MessagesEventEnums } from '../common/enums/messages.event.enums'
-import { Injectable, Inject } from '@nestjs/common';
-
-const log = new Log(__filename);
-
-@Injectable()
-@WebSocketGateway(+WEBSOCKET_PORT, task_room_options)
-export class MessagingGateway implements OnGatewayConnection, OnGatewayDisconnect {
-    @WebSocketServer()
-    server: Server;
-    private readonly START = 'MessagingGateway started';
-
-    constructor(
-        private readonly taskService: TaskService,
-    ) {
-        log.info(this.START, {
-            port: WEBSOCKET_PORT,
-            ...task_room_options,
-        });
-    }
-
-    @SubscribeMessage(MessagesEventEnums.START_MESSAGING)
-    async startMessaging(client: Socket, id: number)
-        : Promise<{status: string, data: object, error: object|string|null}>
-    {
-        // console.log("[ > ] New task info event: ", id);
-        try {
-            return {
-                status: SocketEvent.OK,
-                data: await this.taskService.renderTask(id),
-                error: null
-            }
-        } catch (e) {
-            return {
-                status: SocketEvent.ERROR,
-                data: null,
-                error: e
-            }
-        }
-    }
-
+// } from '../config/index';
+//
+// import { MessagesEventEnums } from '../common/enums/messages.event.enums'
+// import { Injectable, Inject } from '@nestjs/common';
+//
+// const log = new Log(__filename);
+//
+// @Injectable()
+// @WebSocketGateway(+WEBSOCKET_PORT, task_room_options)
+// export class MessagingGateway implements OnGatewayConnection, OnGatewayDisconnect {
+//     @WebSocketServer()
+//     server: Server;
+//     private readonly START = 'MessagingGateway started';
+//
+//     constructor(
+//         private readonly taskService: TaskService,
+//     ) {
+//         log.info(this.START, {
+//             port: WEBSOCKET_PORT,
+//             ...task_room_options,
+//         });
+//     }
+//
+//     @SubscribeMessage(MessagesEventEnums.START_MESSAGING)
+//     async startMessaging(client: Socket, id: number)
+//         : Promise<{status: string, data: object, error: object|string|null}>
+//     {
+//         // console.log("[ > ] New task info event: ", id);
+//         try {
+//             return {
+//                 status: SocketEvent.OK,
+//                 data: await this.taskService.renderTask(id),
+//                 error: null
+//             }
+//         } catch (e) {
+//             return {
+//                 status: SocketEvent.ERROR,
+//                 data: null,
+//                 error: e
+//             }
+//         }
+//     }
+//
 //     @SubscribeMessage(SocketEvent.TASK)
 //     async handleTASK(client: Socket, requestData: CreateTaskDto)
 //         : Promise<{status: string, data: object, error: object|string|null}>
@@ -136,10 +136,10 @@ export class MessagingGateway implements OnGatewayConnection, OnGatewayDisconnec
 //         }
 //         return false;
 //     }
-
-    handleConnection(socket: Socket): void {
-        console.log('# ChunksGateway # client connected - ', socket.handshake.query.instanceUuid, socket.id);
-        console.log(socket.handshake.query.instanceUuid);
-    }
-    async handleDisconnect({ id: socketId }: Socket): Promise<void> {}
-}
+//
+//     handleConnection(socket: Socket): void {
+//         console.log('# ChunksGateway # client connected - ', socket.handshake.query.instanceUuid, socket.id);
+//         console.log(socket.handshake.query.instanceUuid);
+//     }
+//     async handleDisconnect({ id: socketId }: Socket): Promise<void> {}
+// }

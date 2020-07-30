@@ -5,30 +5,30 @@ import {Injectable} from "@nestjs/common";
 export class PostsService {
 
     async newPost() {
-        return  undefined
+        return  null
     }
     async editPost() {
-        return  undefined
+        return  null
     }
     async deletePost() {
-        return  undefined
+        return  null
     }
     async getPost() {
-        return  undefined
+        return  null
     }
     async addComment() {
-        return  undefined
+        return  null
     }
     async deleteComment() {
-        return  undefined
+        return  null
     }
     async editComment() {
-        return  undefined
+        return  null
     }
     async likePost() {
-        return  undefined
+        return  null
     }
     async getLikeList() {
-        return  undefined
+        return  null
     }
 }

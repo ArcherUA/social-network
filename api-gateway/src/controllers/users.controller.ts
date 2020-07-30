@@ -9,7 +9,7 @@ export class UsersController {
 
     constructor(private readonly UsersService: UsersService) {}
 
-    @Post('newUser')
+    @Post('new-user')
     @ApiOperation({title: 'Create new user'})
     async newUser() {
         return this.UsersService.newUser();
@@ -19,12 +19,12 @@ export class UsersController {
     async getUser() {
         return this.UsersService.getUser();
     }
-    @Post('updateUserData')
+    @Post('update-user-data')
     @ApiOperation({title: 'Update user data'})
     async updateUserData() {
         return this.UsersService.updateUserData();
     }
-    @Post('deleteUser')
+    @Post('delete-user')
     @ApiOperation({title: 'Delete user'})
     async deleteUser() {
         return this.UsersService.deleteUser();

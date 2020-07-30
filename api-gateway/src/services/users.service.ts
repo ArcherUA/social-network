@@ -5,15 +5,15 @@ import {Injectable} from "@nestjs/common";
 export class UsersService {
 
     async newUser() {
-        return  undefined
+        return  undefined;
     }
     async getUser() {
-        return undefined
+        return undefined;
     }
     async updateUserData() {
-        return undefined
+        return undefined;
     }
     async deleteUser() {
-        return undefined
+        return undefined;
     }
 }
