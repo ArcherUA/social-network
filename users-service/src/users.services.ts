@@ -1,19 +1,18 @@
-import {Injectable} from "@nestjs/common";
-
+import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
 
-    async register() {
-        return  undefined;
+    register() {
+         return null;
     }
     async getUser() {
-        return undefined;
+        return null;
     }
     async updateUserData() {
-        return undefined;
+        return null;
     }
     async deleteUser() {
-        return undefined;
+        return null;
     }
 }

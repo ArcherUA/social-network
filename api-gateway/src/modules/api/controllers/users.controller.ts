@@ -1,18 +1,34 @@
 import { Controller, Post, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ClientProxy, Client, Transport } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
+import { UsersCommand } from '../../../common/enums/users.command.enums'
 import { UsersService } from '../services/users.service';
 
 @Controller('users')
 @ApiUseTags('users')
 export class UsersController {
-
     constructor(private readonly UsersService: UsersService) {}
 
-    @Post('new-user')
+    @Client({transport: Transport.RMQ})
+    client: ClientProxy;
+
+    async onApplicationBootstrap() {
+        await this.client.connect();
+    }
+    accumulate(): Observable<number> {
+        const pattern = { cmd: 'sum' };
+        const payload = [1, 2, 3];
+        return this.client.send<number>(pattern, payload);
+    }
+
+    @Get('new-user')
     @ApiOperation({title: 'Create new user'})
-    async register() {
-        return this.UsersService.register();
+    register():Observable<number> {
+        const pattern = { cmd: UsersCommand.REGISTRATION_NEW_USER };
+        const payload = [1, 2, 3];
+        return this.client.send<number>(pattern, payload);
     }
     @Get('user')
     @ApiOperation({title: 'Get user'})

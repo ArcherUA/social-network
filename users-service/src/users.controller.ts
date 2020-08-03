@@ -3,26 +3,31 @@ import { Controller } from '@nestjs/common';
 import {  ApiUseTags } from '@nestjs/swagger';
 import { MessagePattern, RpcException, Payload } from '@nestjs/microservices';
 
-import { UsersMessage } from './commmon/enums/users.message.enums'
+import { UsersCommand } from './commmon/enums/users.command.enums'
+import { UsersService } from "./users.services";
 
 @Controller()
 @ApiUseTags('users')
 export class UsersController {
 
-    @MessagePattern({cmd: UsersMessage.REGISTRATION_NEW_USER})
-    async register() {
-        return null
+    constructor(private readonly UsersService: UsersService) {
     }
-    @MessagePattern({cmd: UsersMessage.GET_USER})
+
+    @MessagePattern({cmd: UsersCommand.REGISTRATION_NEW_USER})
+    async register(payload) {
+        return console.log(payload)
+        // await this.UsersService.register();
+    }
+    @MessagePattern({cmd: UsersCommand.GET_USER})
     async getUser() {
-        return null
+        return await this.UsersService.getUser();
     }
-    @MessagePattern({cmd: UsersMessage.UPDATE_USER_DATA})
+    @MessagePattern({cmd: UsersCommand.UPDATE_USER_DATA})
     async updateUserData() {
-        return null
+        return await this.UsersService.updateUserData();
     }
-    @MessagePattern({cmd: UsersMessage.DELETE_USER})
+    @MessagePattern({cmd: UsersCommand.DELETE_USER})
     async deleteUser() {
-        return null
+        return await this.UsersService.deleteUser();
     }
 }

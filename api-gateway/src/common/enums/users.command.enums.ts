@@ -1,4 +1,4 @@
-export enum UsersMessage {
+export enum UsersCommand {
     REGISTRATION_NEW_USER = 'REGISTRATION_NEW_USER',
     GET_USER = 'GET_USER',
     UPDATE_USER_DATA = 'UPDATE_USER_DATA',
