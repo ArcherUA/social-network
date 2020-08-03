@@ -10,7 +10,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
 
     WEBSOCKET_PORT: Joi.number().default(3002),
 
-    RMQ_DISTRIBUTOR_HOST: Joi.string().default('rabbit_service'),
+    RMQ_DISTRIBUTOR_HOST: Joi.string().default('rabbitmq_server'),
     RMQ_DISTRIBUTOR_PORT: Joi.number().default(5672),
     MEDIA_STORAGE_PATH: Joi.string(),
 });

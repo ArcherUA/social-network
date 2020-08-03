@@ -54,23 +54,36 @@ services:
       - '${POSTS_SERVICE_PORT}:${POSTS_SERVICE_PORT}'
     depends_on:
       - posts_db
-  rabbit_service:
-    image: 'rabbitmq:3.6.6-management'
-    container_name: rabbit_service
-    hostname: rabbit_service
-    env_file: .env
-    volumes:
-      - './data:/var/lib/rabbitmq'
-      - './data/logs:/var/log/rabbitmq'
+#  rabbit_service:
+#    image: 'rabbitmq:3.6.6-management'
+#    container_name: rabbit_service
+#    hostname: rabbit_service
+#    env_file: .env
+#    volumes:
+#      - './data:/var/lib/rabbitmq'
+#      - './data/logs:/var/log/rabbitmq'
+#    ports:
+#      - '4369:4369'
+#      - '5672:5672'
+#      - '15672:15672'
+#      - '25672:25672'
+#      - '35197:35197'
+#    environment:
+#      - RABBITMQ_USE_LONGNAME=true
+#      - RABBITMQ_LOGS="/var/log/rabbitmq/rabbit.log"
+  rabbitmq_server:
+    container_name: rabbitmq_server
+    hostname: rabbitmq_server
+    image: 'bitnami/rabbitmq:latest'
     ports:
-      - '4369:4369'
-      - '5672:5672'
-      - '15672:15672'
-      - '25672:25672'
-      - '35197:35197'
+          - '4369:4369'
+          - '5672:5672'
+          - '15672:15672'
+          - '25672:25672'
+          - '35197:35197'
     environment:
-      - RABBITMQ_USE_LONGNAME=true
-      - RABBITMQ_LOGS="/var/log/rabbitmq/rabbit.log"
+      - RABBITMQ_USERNAME=astra_user
+      - RABBITMQ_PASSWORD=astra_password
   messages_db:
     container_name: messages_db
     hostname: '${MESSAGES_DB_HOST}'
