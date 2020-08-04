@@ -14,8 +14,8 @@ export class UsersController {
     }
 
     @MessagePattern({cmd: UsersCommand.REGISTRATION_NEW_USER})
-    async register(payload) {
-        return console.log(payload)
+    async register() {
+        return console.log('test')
         // await this.UsersService.register();
     }
     @MessagePattern({cmd: UsersCommand.GET_USER})

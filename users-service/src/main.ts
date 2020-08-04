@@ -11,7 +11,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [`amqp://${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
-      queue: 'usersa_queue',
+      queue: 'users_queue',
       queueOptions: {
         durable: false,
       },

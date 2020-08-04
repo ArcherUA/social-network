@@ -10,10 +10,9 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
 
     WEBSOCKET_PORT: Joi.number().default(3002),
 
-    // DISTRIBUTOR_HOST: Joi.string().default('distributor'),
-    // DISTRIBUTOR_PORT: Joi.number().default(6379),
     RMQ_DISTRIBUTOR_HOST: Joi.string().default('rabbitmq_server'),
     RMQ_DISTRIBUTOR_PORT: Joi.number().default(5672),
 
-    MEDIA_STORAGE_PATH: Joi.string(),
+    RABBITMQ_USERNAME: Joi.string().default('astra_user'),
+    RABBITMQ_PASSWORD: Joi.string().default('astra_password'),
 });
