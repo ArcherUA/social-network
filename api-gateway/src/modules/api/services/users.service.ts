@@ -1,6 +1,6 @@
-import {Injectable} from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import {Observable} from "rxjs";
-import {UsersCommand} from "../../../common/enums/users.command.enums";
+import { UsersCommand } from "../../../common/enums/users.command.enums";
 import { ClientProxy } from '@nestjs/microservices';
 
 

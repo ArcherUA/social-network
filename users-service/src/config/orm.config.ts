@@ -1,26 +1,26 @@
 import { ConnectionOptions } from 'typeorm';
-// import {
-//   CONVERTOR_DB_HOST,
-//   CONVERTOR_DB_PORT,
-//   CONVERTOR_DB_NAME,
-//   CONVERTOR_DB_USER,
-//   CONVERTOR_DB_PASSWORD,
-//   NODE_ENV,
-// } from './';
+import {
+  USERS_DB_HOST,
+  USERS_DB_PORT,
+  USERS_DB_NAME,
+  USERS_DB_USER,
+  USERS_DB_PASSWORD,
 
-// export const CONVERTOR_DB_CONFIG = {
-//   type: 'postgres',
-//   host: CONVERTOR_DB_HOST,
-//   port: parseInt(CONVERTOR_DB_PORT, 10),
-//   username: CONVERTOR_DB_USER,
-//   password: CONVERTOR_DB_PASSWORD,
-//   database: CONVERTOR_DB_NAME,
-//   entities: [ `${__dirname}/../**/*.entity{.ts,.js}` ],
-//   synchronize: false,
-//   migrations: [`${__dirname}/../migrations/**/*.migration.ts`],
-//   // logging: NODE_ENV !== 'production',
-//   logging: false,
-//   cli: {
-//     migrationsDir: 'src/migration',
-//   },
-// } as ConnectionOptions;
+} from './index';
+
+export const USERS_DB_CONFIG = {
+  type: 'postgres',
+  host: USERS_DB_HOST,
+  port: USERS_DB_PORT,
+  username: USERS_DB_USER,
+  password: USERS_DB_PASSWORD,
+  database: USERS_DB_NAME,
+  entities: [ `${__dirname}/../**/*.entity{.ts,.js}` ],
+  synchronize: false,
+  migrations: [`${__dirname}/../migrations/**/*.migration.ts`],
+  // logging: NODE_ENV !== 'production',
+  logging: false,
+  cli: {
+    migrationsDir: 'src/migration',
+  },
+} as ConnectionOptions;

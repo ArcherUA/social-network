@@ -3,7 +3,7 @@ import { Controller } from '@nestjs/common';
 import {  ApiUseTags } from '@nestjs/swagger';
 import { MessagePattern, RpcException, Payload } from '@nestjs/microservices';
 
-import { UsersCommand } from './commmon/enums/users.command.enums'
+import { UsersCommand } from './common/enums/users.command.enums';
 import { UsersService } from "./users.services";
 
 @Controller()

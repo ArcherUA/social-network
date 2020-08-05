@@ -124,7 +124,7 @@ services:
       POSTGRES_USER: '${USERS_DB_USER}'
       POSTGRES_PASSWORD: '${USERS_DB_PASSWORD}'
       POSTGRES_DB: '${USERS_DB_NAME}'
-      POSTGRES_PORT: '${USERS_DB_PORT}'
+      PGPORT: '${USERS_DB_PORT}'
       PGDATA: /var/lib/postgresql/data/users_db_data
     ports:
       - '${USERS_DB_PORT}:${USERS_DB_PORT}'

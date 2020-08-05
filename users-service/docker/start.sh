@@ -10,9 +10,9 @@ done
 
 echo "Running migrations and seeds..."
 
-# yarn migrate:run
+ yarn migrate:run
 
-echo "Starting the convertor..."
+echo "Starting User Service..."
 
 case "$NODE_ENV" in
   "debug")

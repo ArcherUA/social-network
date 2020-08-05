@@ -3,8 +3,12 @@ import {Injectable} from '@nestjs/common';
 @Injectable()
 export class UsersService {
 
-    register() {
-         return null;
+    async register(login: string, email: string, password: string): Promise<void> {
+        try {
+
+        } catch (e) {
+
+        }
     }
     async getUser() {
         return null;
