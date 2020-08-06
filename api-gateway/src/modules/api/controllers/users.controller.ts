@@ -15,7 +15,7 @@ import {
 @Controller('users')
 @ApiUseTags('users')
 export class UsersController {
-    constructor(private readonly UsersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {}
 
     @Client({
         transport: Transport.RMQ,
@@ -47,22 +47,22 @@ export class UsersController {
     @Get('new-user')
     @ApiOperation({title: 'Create new user'})
     async register() {
-        return this.UsersService.register()
+        return this.usersService.register()
     }
     @Get('user')
     @ApiOperation({title: 'Get user'})
     async getUser() {
-        return this.UsersService.getUser();
+        return this.usersService.getUser();
     }
     @Post('update-user-data')
     @ApiOperation({title: 'Update user data'})
     async updateUserData() {
-        return this.UsersService.updateUserData();
+        return this.usersService.updateUserData();
     }
     @Post('delete-user')
     @ApiOperation({title: 'Delete user'})
     async deleteUser() {
-        return this.UsersService.deleteUser();
+        return this.usersService.deleteUser();
     }
 
 

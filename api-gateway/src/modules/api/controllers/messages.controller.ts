@@ -8,7 +8,7 @@ import { MessagesService } from '../services/messages.service';
 export class MessagesController {
 
     constructor(
-        private readonly MessagesService:MessagesService,
+        private readonly messagesService:MessagesService,
         // private readonly MessagingGateway:MessagingGateway,
         ) {}
 
