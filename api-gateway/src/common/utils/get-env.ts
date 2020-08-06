@@ -1,8 +1,8 @@
 import * as Joi from 'joi';
-import { logger } from './logger';
+import {logger} from './logger';
 
 export const getEnv = (envSchema: Joi.ObjectSchema) => {
-  const { error, value } = Joi.validate(process.env, envSchema, {
+  const {error, value} = Joi.validate(process.env, envSchema, {
     abortEarly: false,
     allowUnknown: true,
     stripUnknown: true,

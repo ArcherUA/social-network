@@ -1,12 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices'
-import { AppModule } from './app.module';
+import {NestFactory} from '@nestjs/core';
+import {Transport} from '@nestjs/microservices'
+import {AppModule} from './app.module';
 import {
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT,
   RABBITMQ_PASSWORD,
   RABBITMQ_USERNAME
-  } from  './config/index'
+} from './config/index'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,4 +25,5 @@ async function bootstrap() {
   });
   await app.startAllMicroservicesAsync();
 }
+
 bootstrap();

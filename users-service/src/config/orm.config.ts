@@ -1,4 +1,4 @@
-import { ConnectionOptions } from 'typeorm';
+import {ConnectionOptions} from 'typeorm';
 import {
   USERS_DB_HOST,
   USERS_DB_PORT,
@@ -15,7 +15,7 @@ export const USERS_DB_CONFIG = {
   username: USERS_DB_USER,
   password: USERS_DB_PASSWORD,
   database: USERS_DB_NAME,
-  entities: [ `${__dirname}/../**/*.entity{.ts,.js}` ],
+  entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
   synchronize: false,
   migrations: [`${__dirname}/../migrations/**/*.migration.ts`],
   // logging: NODE_ENV !== 'production',

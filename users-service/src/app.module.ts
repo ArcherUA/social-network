@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import {Module} from '@nestjs/common';
+import {TypeOrmModule} from '@nestjs/typeorm';
 import {ClientsModule, Transport} from "@nestjs/microservices";
 
-import { UsersController } from "./users.controller";
-import { UsersService } from "./users.services";
-import { USERS_DB_CONFIG } from "./config/orm.config";
+import {UsersController} from "./users.controller";
+import {UsersService} from "./users.services";
+import {USERS_DB_CONFIG} from "./config/orm.config";
 import {
   RABBITMQ_PASSWORD,
   RABBITMQ_USERNAME,
@@ -33,4 +33,5 @@ import {
   controllers: [UsersController],
   providers: [UsersService],
 })
-export class AppModule {}
+export class AppModule {
+}

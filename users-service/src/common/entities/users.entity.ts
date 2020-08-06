@@ -3,31 +3,30 @@ import {BaseEntity} from "./base.entity";
 import {Avatar} from "./avatar.entity";
 
 
-
-@Entity({ name: 'users' })
+@Entity({name: 'users'})
 export class User extends BaseEntity<User> {
 
-    @Column()
-    fullName: string;
+  @Column()
+  fullName: string;
 
-    @Column()
-    password: number;
+  @Column()
+  password: number;
 
-    @Column()
-    email: string;
+  @Column()
+  email: string;
 
-    @Column()
-    phoneNumber: string;
+  @Column()
+  phoneNumber: string;
 
-    @Column()
-    dateOfBirth: string;
+  @Column()
+  dateOfBirth: string;
 
-    @Column()
-    adress: string;
+  @Column()
+  adress: string;
 
-    @Column()
-    avatarId: string;
+  @Column()
+  avatarId: string;
 
-    @OneToMany(() => Avatar, avatar => avatar.user)
-    avatar: Avatar;
+  @OneToMany(() => Avatar, avatar => avatar.user)
+  avatar: Avatar;
 }

@@ -4,8 +4,8 @@ import {
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT,
 } from './';
-import { ClientProviderOptions, MicroserviceOptions, Transport } from "@nestjs/microservices";
-import { NestApplicationContextOptions } from "@nestjs/common/interfaces/nest-application-context-options.interface";
+import {ClientProviderOptions, MicroserviceOptions, Transport} from "@nestjs/microservices";
+import {NestApplicationContextOptions} from "@nestjs/common/interfaces/nest-application-context-options.interface";
 
 export const RMQ_CONFIG_USER_SERVICE = {
   transport: Transport.RMQ,

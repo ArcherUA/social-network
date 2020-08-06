@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import {NestFactory} from '@nestjs/core';
 import {MicroserviceOptions, Transport} from "@nestjs/microservices";
 
-import { AppModule } from './app.module';
+import {AppModule} from './app.module';
 import {
   API_GATEWAY_PORT,
   RABBITMQ_PASSWORD,
@@ -29,4 +29,4 @@ async function bootstrap() {
 }
 
 
-  bootstrap();
+bootstrap();

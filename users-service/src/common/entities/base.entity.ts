@@ -1,4 +1,5 @@
-import { CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn} from 'typeorm';
+
 // import { ApiModelProperty } from '@nestjs/swagger';
 
 export abstract class BaseEntity<T> {
@@ -6,11 +7,11 @@ export abstract class BaseEntity<T> {
   id: number;
 
   // @ApiModelProperty()
-  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+  @CreateDateColumn({type: 'timestamptz', name: 'created_at'})
   createdAt: Date;
 
   // @ApiModelProperty()
-  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  @UpdateDateColumn({type: 'timestamptz', name: 'updated_at'})
   updatedAt: Date;
 
   constructor(partial: Partial<T>) {

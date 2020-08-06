@@ -1,14 +1,14 @@
-import { Module } from "@nestjs/common";
-import { ClientsModule, Transport } from "@nestjs/microservices";
+import {Module} from "@nestjs/common";
+import {ClientsModule, Transport} from "@nestjs/microservices";
 
-import { MessagesController, PostsController, UsersController } from  './controllers';
-import { MessagesService, PostsService, UsersService } from './services';
+import {MessagesController, PostsController, UsersController} from './controllers';
+import {MessagesService, PostsService, UsersService} from './services';
 import {
-    RABBITMQ_USERNAME,
-    RABBITMQ_PASSWORD,
-    RMQ_DISTRIBUTOR_HOST,
-    RMQ_DISTRIBUTOR_PORT
-    } from "../../config";
+  RABBITMQ_USERNAME,
+  RABBITMQ_PASSWORD,
+  RMQ_DISTRIBUTOR_HOST,
+  RMQ_DISTRIBUTOR_PORT
+} from "../../config";
 
 @Module({
   imports: [
@@ -27,15 +27,16 @@ import {
       },
     ]),
   ],
-    controllers: [
-        MessagesController,
-        PostsController,
-        UsersController,
-    ],
-    providers: [
-        MessagesService,
-        PostsService,
-        UsersService,
-    ],
+  controllers: [
+    MessagesController,
+    PostsController,
+    UsersController,
+  ],
+  providers: [
+    MessagesService,
+    PostsService,
+    UsersService,
+  ],
 })
-export class ApiModule {}
+export class ApiModule {
+}

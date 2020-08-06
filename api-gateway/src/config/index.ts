@@ -1,33 +1,33 @@
-import { getEnv } from '../common/utils/get-env';
-import { envSchema } from './required-env.config';
+import {getEnv} from '../common/utils/get-env';
+import {envSchema} from './required-env.config';
 
 const {
-    NODE_ENV,
+  NODE_ENV,
 
-    API_GATEWAY_PORT,
-    API_HOST,
+  API_GATEWAY_PORT,
+  API_HOST,
 
-    WEBSOCKET_PORT,
+  WEBSOCKET_PORT,
 
-    RMQ_DISTRIBUTOR_HOST,
-    RMQ_DISTRIBUTOR_PORT,
+  RMQ_DISTRIBUTOR_HOST,
+  RMQ_DISTRIBUTOR_PORT,
 
-    RABBITMQ_USERNAME,
-    RABBITMQ_PASSWORD,
+  RABBITMQ_USERNAME,
+  RABBITMQ_PASSWORD,
 
 } = getEnv(envSchema);
 
 export {
-    NODE_ENV,
+  NODE_ENV,
 
-    API_GATEWAY_PORT,
-    API_HOST,
+  API_GATEWAY_PORT,
+  API_HOST,
 
-    WEBSOCKET_PORT,
+  WEBSOCKET_PORT,
 
-    RMQ_DISTRIBUTOR_HOST,
-    RMQ_DISTRIBUTOR_PORT,
+  RMQ_DISTRIBUTOR_HOST,
+  RMQ_DISTRIBUTOR_PORT,
 
-    RABBITMQ_USERNAME,
-    RABBITMQ_PASSWORD,
+  RABBITMQ_USERNAME,
+  RABBITMQ_PASSWORD,
 };
