@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { Observable } from "rxjs";
-import { UsersCommand } from "../../../common/enums/users.command.enums";
+import {Inject, Injectable} from "@nestjs/common";
+import {Observable} from "rxjs";
+import {UsersCommand} from "../../../common/enums/users.command.enums";
 import {Client, ClientProxy, Transport} from '@nestjs/microservices';
 import {RABBITMQ_PASSWORD, RABBITMQ_USERNAME, RMQ_DISTRIBUTOR_HOST, RMQ_DISTRIBUTOR_PORT} from "../../../config";
 
@@ -8,32 +8,25 @@ import {RABBITMQ_PASSWORD, RABBITMQ_USERNAME, RMQ_DISTRIBUTOR_HOST, RMQ_DISTRIBU
 @Injectable()
 export class UsersService {
 
-    @Client({
-      transport: Transport.RMQ,
-      options: {
-        urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
-        queue: 'users_queue',
-        queueOptions: {
-          durable: false,
-        }
-      }})
-    client: ClientProxy;
+  public constructor(@Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy) {
+  }
 
-    async register() {
+  register() {
+    const pattern = {cmd: UsersCommand.REGISTER_NEW_USER};
+    const payload = [1, 2, 3];
+    return this.rmqClient
+      .send(pattern, payload)
+  }
 
-            const pattern = { cmd: UsersCommand.REGISTER_NEW_USER };
-            const payload = [1, 2, 3];
-            return this.client
-                .send(pattern, payload)
-        }
+  async getUser() {
+    return undefined;
+  }
 
-    async getUser() {
-        return undefined;
-    }
-    async updateUserData() {
-        return undefined;
-    }
-    async deleteUser() {
-        return undefined;
-    }
+  async updateUserData() {
+    return undefined;
+  }
+
+  async deleteUser() {
+    return undefined;
+  }
 }

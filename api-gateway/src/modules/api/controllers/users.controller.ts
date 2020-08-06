@@ -1,4 +1,4 @@
-import { Controller, Post, Get } from "@nestjs/common";
+import {Controller, Post, Get, Inject} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { ClientProxy, Client, Transport } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
@@ -15,31 +15,17 @@ import {
 @Controller('users')
 @ApiUseTags('users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
 
-    @Client({
-        transport: Transport.RMQ,
-        options: {
-            urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
-            queue: 'users_queue',
-            queueOptions: {
-                durable: false,
-            }
-        }})
-    client: ClientProxy;
+    constructor(
+      private readonly usersService: UsersService,
+      @Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy,
 
-    async onApplicationBootstrap() {
-        await this.client.connect();
-    }
-    accumulate(): Observable<number> {
-        const pattern = { cmd: 'sum' };
-        const payload = [1, 2, 3];
-        return this.client.send<number>(pattern, payload);
-    }
+    ) {}
 
     @Get('new-user')
     @ApiOperation({title: 'Create new user'})
-    async register() {
+    register() {
+        console.log('register')
         return this.usersService.register()
     }
     @Get('user')

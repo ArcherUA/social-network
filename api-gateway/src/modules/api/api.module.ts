@@ -20,7 +20,8 @@ import {
           urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
           queue: 'users_queue',
           queueOptions: {
-            durable: false
+            durable: false,
+            noAck: true,
           },
         },
       },

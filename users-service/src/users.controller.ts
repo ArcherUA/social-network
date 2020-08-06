@@ -1,20 +1,24 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Inject, Injectable } from '@nestjs/common';
 
 import {  ApiUseTags } from '@nestjs/swagger';
-import { MessagePattern, RpcException, Payload } from '@nestjs/microservices';
+import { MessagePattern, ClientProxy} from '@nestjs/microservices';
 
 import { UsersCommand } from './common/enums/users.command.enums';
 import { UsersService } from "./users.services";
 
+@Injectable()
 @Controller()
 @ApiUseTags('users')
 export class UsersController {
 
-    constructor(private readonly usersService: UsersService) {}
+    constructor(
+      private readonly usersService: UsersService,
+    ) {}
 
     @MessagePattern({cmd: UsersCommand.REGISTER_NEW_USER})
-    async register() {
-        return await this.usersService.register();
+    async register(payload) {
+        // console.log('kek is', UsersCommand.REGISTER_NEW_USER)
+        return await this.usersService.register(payload);
     };
 
     @MessagePattern({cmd: UsersCommand.GET_USER})

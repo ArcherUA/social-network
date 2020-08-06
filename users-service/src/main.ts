@@ -19,9 +19,10 @@ async function bootstrap() {
       queue: 'users_queue',
       queueOptions: {
         durable: false,
+        noAck: true,
       },
     },
   });
-
+  await app.startAllMicroservicesAsync();
 }
 bootstrap();
