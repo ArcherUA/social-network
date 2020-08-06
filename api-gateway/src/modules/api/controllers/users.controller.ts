@@ -37,13 +37,6 @@ export class UsersController {
         return this.client.send<number>(pattern, payload);
     }
 
-    // @Get('new-user')
-    // @ApiOperation({title: 'Create new user'})
-    // register():Observable<number> {
-    //     const pattern = { cmd: UsersCommand.REGISTRATION_NEW_USER };
-    //     const payload = [1, 2, 3];
-    //     return this.client.send<number>(pattern, payload);
-    // }
     @Get('new-user')
     @ApiOperation({title: 'Create new user'})
     async register() {

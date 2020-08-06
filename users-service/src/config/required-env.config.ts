@@ -20,4 +20,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
     USERS_DB_USER: Joi.string().default('root'),
     USERS_DB_PASSWORD: Joi.string().default('root'),
 
+    RABBITMQ_USERNAME: Joi.string().default('astra_user'),
+    RABBITMQ_PASSWORD: Joi.string().default('astra_password'),
+
 });
