@@ -1,16 +1,10 @@
-import {Controller, Post, Get, Inject} from "@nestjs/common";
-import {ApiOperation, ApiResponse, ApiUseTags} from '@nestjs/swagger';
-import {ClientProxy, Client, Transport} from '@nestjs/microservices';
-import {Observable} from 'rxjs';
+import {Controller, Post, Get, Inject, Body, Req} from "@nestjs/common";
+import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
+import {ClientProxy} from '@nestjs/microservices';
 
-import {UsersCommand} from '../../../common/enums/users.command.enums'
+import {Request} from 'express';
+
 import {UsersService} from '../services/users.service';
-import {
-  RMQ_DISTRIBUTOR_HOST,
-  RMQ_DISTRIBUTOR_PORT,
-  RABBITMQ_USERNAME,
-  RABBITMQ_PASSWORD
-} from "../../../config/index";
 
 @Controller('users')
 @ApiUseTags('users')
@@ -22,11 +16,11 @@ export class UsersController {
   ) {
   }
 
-  @Get('new-user')
+  @Post('new-user')
   @ApiOperation({title: 'Create new user'})
-  register() {
-    console.log('register')
-    return this.usersService.register()
+  register(@Req() request: Request) {
+    const user = request.body;
+    return this.usersService.register(user);
   }
 
   @Get('user')

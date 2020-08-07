@@ -1,7 +1,7 @@
 import {Controller, Inject, Injectable} from '@nestjs/common';
 
 import {ApiUseTags} from '@nestjs/swagger';
-import {MessagePattern, ClientProxy} from '@nestjs/microservices';
+import {MessagePattern, Payload} from '@nestjs/microservices';
 
 import {UsersCommand} from './common/enums/users.command.enums';
 import {UsersService} from "./users.services";
@@ -17,9 +17,8 @@ export class UsersController {
   }
 
   @MessagePattern({cmd: UsersCommand.REGISTER_NEW_USER})
-  async register(payload) {
-    // console.log('kek is', UsersCommand.REGISTER_NEW_USER)
-    return await this.usersService.register(payload);
+  async register(@Payload() user) {
+    return await this.usersService.register(user);
   };
 
   @MessagePattern({cmd: UsersCommand.GET_USER})
