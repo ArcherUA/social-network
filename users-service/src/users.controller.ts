@@ -1,7 +1,7 @@
 import {Controller, Inject, Injectable} from '@nestjs/common';
 
 import {ApiUseTags} from '@nestjs/swagger';
-import {MessagePattern, Payload} from '@nestjs/microservices';
+import {ClientProxy, MessagePattern, Payload} from '@nestjs/microservices';
 
 import {UsersCommand} from './common/enums/users.command.enums';
 import {UsersService} from "./users.services";
@@ -13,6 +13,7 @@ export class UsersController {
 
   constructor(
     private readonly usersService: UsersService,
+    @Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy,
   ) {
   }
 
@@ -22,8 +23,8 @@ export class UsersController {
   };
 
   @MessagePattern({cmd: UsersCommand.GET_USER})
-  async getUser() {
-    return await this.usersService.getUser();
+  async getUser(@Payload() id: string) {
+    return await this.usersService.getUser(id);
   };
 
   @MessagePattern({cmd: UsersCommand.UPDATE_USER_DATA})
@@ -32,7 +33,7 @@ export class UsersController {
   };
 
   @MessagePattern({cmd: UsersCommand.DELETE_USER})
-  async deleteUser() {
-    return await this.usersService.deleteUser();
+  async deleteUser(@Payload() id: string) {
+    return await this.usersService.deleteUser(id);
   };
 }

@@ -1,9 +1,13 @@
 import {Module} from '@nestjs/common';
-import {TypeOrmModule} from '@nestjs/typeorm';
 
 import {ApiModule} from './modules/api/api.module';
 import {ClientsModule, Transport} from "@nestjs/microservices";
-import {RABBITMQ_PASSWORD, RABBITMQ_USERNAME, RMQ_DISTRIBUTOR_HOST, RMQ_DISTRIBUTOR_PORT} from "./config";
+import {
+  RABBITMQ_PASSWORD,
+  RABBITMQ_USERNAME,
+  RMQ_DISTRIBUTOR_HOST,
+  RMQ_DISTRIBUTOR_PORT
+} from "./config";
 
 @Module({
   imports: [

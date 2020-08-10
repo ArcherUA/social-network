@@ -11,25 +11,33 @@ export class UsersService {
 
   public constructor(
     @Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy,
-    @InjectRepository(User) protected readonly userRepository: Repository<User>,
+    @InjectRepository(User)
+    protected readonly userRepository: Repository<User>,
   ) {
   }
 
   async register(user) {
     const newUser = new User(user)
-    // return this.userRepository.save(newUser);
-    return console.log(newUser)
+    const candidate = await this.userRepository.findOne({
+      where: {
+        email: newUser.email
+      }
+    })
+    if (!candidate) {
+      return await this.userRepository.save(newUser);
+    }
+    return 'Email is already registered'
   }
 
-  async getUser() {
-    return null;
+  async getUser(id) {
+    return await this.userRepository.findOne(id)
   }
 
   async updateUserData() {
     return null;
   }
 
-  async deleteUser() {
-    return null;
+  async deleteUser(id) {
+    return await this.userRepository.delete(id)
   }
 }

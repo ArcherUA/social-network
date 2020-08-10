@@ -11,10 +11,14 @@ import {
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT
 } from './config/index';
+import {User} from "./common/entities/users.entity";
+import {Avatar} from "./common/entities/avatar.entity";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(USERS_DB_CONFIG),
+    TypeOrmModule.forRoot({...USERS_DB_CONFIG, entities: [User, Avatar]}),
+    TypeOrmModule.forFeature([User, Avatar]),
+
     ClientsModule.register([
       {
         name: 'USERS_SERVICE',

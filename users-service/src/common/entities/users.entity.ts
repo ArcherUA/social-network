@@ -10,7 +10,7 @@ export class User extends BaseEntity<User> {
   fullName: string;
 
   @Column()
-  password: number;
+  password: string;
 
   @Column()
   email: string;
@@ -22,11 +22,11 @@ export class User extends BaseEntity<User> {
   dateOfBirth: string;
 
   @Column()
-  adress: string;
+  adres: string;
 
-  @Column()
-  avatarId: string;
+  @Column({nullable: true})
+  avatarId: number;
 
   @OneToMany(() => Avatar, avatar => avatar.user)
-  avatar: Avatar;
+  avatar: Avatar[];
 }
