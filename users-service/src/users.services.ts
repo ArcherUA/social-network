@@ -17,27 +17,35 @@ export class UsersService {
   }
 
   async register(user) {
-    const newUser = new User(user)
+    const newUser = new User(user);
     const candidate = await this.userRepository.findOne({
       where: {
         email: newUser.email
       }
-    })
+    });
     if (!candidate) {
       return await this.userRepository.save(newUser);
     }
-    return 'Email is already registered'
+    return 'Email is already registered';
   }
 
   async getUser(id) {
-    return await this.userRepository.findOne(id)
+    return await this.userRepository.findOne(id);
   }
 
-  async updateUserData() {
-    return null;
+  async updateUserData(user) {
+    let candidate = await this.userRepository.findOne({
+      where: {
+        id: user.id
+      }
+    });
+    candidate = {...candidate, ...user};
+    return await this.userRepository.save(candidate);
   }
+  // TODO Доделать обновление пользователя
+  
 
   async deleteUser(id) {
-    return await this.userRepository.delete(id)
+    return await this.userRepository.delete(id);
   }
 }

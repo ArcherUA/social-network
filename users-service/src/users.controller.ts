@@ -28,8 +28,8 @@ export class UsersController {
   };
 
   @MessagePattern({cmd: UsersCommand.UPDATE_USER_DATA})
-  async updateUserData() {
-    return await this.usersService.updateUserData();
+  async updateUserData(@Payload() user) {
+    return await this.usersService.updateUserData(user);
   };
 
   @MessagePattern({cmd: UsersCommand.DELETE_USER})

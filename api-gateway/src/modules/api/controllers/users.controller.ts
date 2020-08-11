@@ -1,4 +1,4 @@
-import {Controller, Post, Get, Inject, Body, Req, Param} from "@nestjs/common";
+import {Controller, Post, Get, Inject, Body, Req, Param, Delete} from "@nestjs/common";
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 import {ClientProxy} from '@nestjs/microservices';
 
@@ -29,15 +29,17 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
 
-  @Post('update-user-data')
+  @Post('update-user-data/:id')
   @ApiOperation({title: 'Update user data'})
-  async updateUserData() {
-    return this.usersService.updateUserData();
+  async updateUserData(@Req() request: Request) {
+    const user = request.body
+    return this.usersService.updateUserData(user);
   }
 
-  @Get('delete-user/:id')
+  @Delete('delete-user')
   @ApiOperation({title: 'Delete user'})
-  async deleteUser(@Param('id') id: string) {
+  async deleteUser(@Req() request: Request) {
+    const id = request.body.id
     return this.usersService.deleteUser(id);
   }
 
