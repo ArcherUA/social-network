@@ -36,4 +36,8 @@ export class UsersController {
   async deleteUser(@Payload() id: string) {
     return await this.usersService.deleteUser(id);
   };
+  @MessagePattern({cmd: UsersCommand.LOGIN_USER})
+  async loginUser(@Payload() {email,password}) {
+    return await this.usersService.loginUser(email, password)
+  }
 }

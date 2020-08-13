@@ -5,7 +5,7 @@ import {Md5} from 'md5-typescript'
 import {Repository} from 'typeorm';
 
 import {User} from "./common/entities/users.entity";
-
+import {TokenService} from './token/token.service'
 @Injectable()
 export class UsersService {
 
@@ -16,6 +16,7 @@ export class UsersService {
     @Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy,
     @InjectRepository(User)
     protected readonly userRepository: Repository<User>,
+    protected readonly tokenService: TokenService,
   ) {
   }
 
@@ -37,7 +38,6 @@ export class UsersService {
       console.log(e);
     }
   }
-
   async findOneByEmail(email) {
     const user = await this.userRepository.findOne({
       where: {
@@ -52,7 +52,6 @@ export class UsersService {
   async getUser(id: string) {
     return await this.userRepository.findOne(id);
   }
-
   async updateUserData(user) {
     const verifyUser = await this.userRepository.findOne(user.id);
     if (verifyUser) {
@@ -61,8 +60,13 @@ export class UsersService {
     }
     return this.INVALID_USER_ID;
   }
-
   async deleteUser(id: string) {
     return await this.userRepository.delete(id);
+  }
+  async loginUser(email,password) {
+    return this.tokenService.createToken()
+    // Не пойму что сюда прокидывать
+    // Думал, что нужно кидать пароль\мейл, чтобы токен сервис проверил
+    // Но тут айди/мейл
   }
 }

@@ -1,7 +1,6 @@
 import {Controller, Post, Get, Inject, Body, Req, Param, Delete} from "@nestjs/common";
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 import {ClientProxy} from '@nestjs/microservices';
-
 import {Request} from 'express';
 
 import {UsersService} from '../services/users.service';
@@ -43,5 +42,9 @@ export class UsersController {
     return this.usersService.deleteUser(id);
   }
 
-
+  @Post()
+  @ApiOperation({title: 'Authentication user'})
+  async login(email, password) {
+    return this.usersService.loginUser(email,password)
+  }
 }

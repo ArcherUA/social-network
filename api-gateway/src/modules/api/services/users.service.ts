@@ -34,4 +34,9 @@ export class UsersService {
     return this.rmqClient
       .send(pattern, id);
   };
+  async loginUser(email,password) {
+    const pattern = {cmd: UsersCommand.LOGIN_USER};
+    return this.rmqClient
+      .send(pattern,{email,password})
+  }
 }
