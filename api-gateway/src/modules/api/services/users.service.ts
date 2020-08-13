@@ -11,7 +11,7 @@ export class UsersService {
     @Inject('USERS_SERVICE') private readonly rmqClient: ClientProxy) {
   };
 
-  register(user: RegisterUserDto) {
+  register(user) {
     const pattern = {cmd: UsersCommand.REGISTER_NEW_USER};
     return this.rmqClient
       .send(pattern, user);
@@ -23,7 +23,7 @@ export class UsersService {
       .send(pattern, id);
   };
 
-  async updateUserData(user: RegisterUserDto) {
+  async updateUserData(user) {
     const pattern = {cmd: UsersCommand.UPDATE_USER_DATA};
     return this.rmqClient
       .send(pattern, user);

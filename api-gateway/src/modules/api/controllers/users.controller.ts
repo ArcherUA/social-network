@@ -29,7 +29,7 @@ export class UsersController {
     return this.usersService.getUser(id);
   }
 
-  @Post('update-user-data/:id')
+  @Post('update-user-data')
   @ApiOperation({title: 'Update user data'})
   async updateUserData(@Req() request: Request) {
     const user = request.body
