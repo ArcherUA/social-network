@@ -19,8 +19,6 @@ const {
   USERS_DB_USER,
   USERS_DB_PASSWORD,
 
-  JWT_SECRET,
-  EXPIRES_IN
 } = getEnv(envSchema);
 
 export {
@@ -41,6 +39,4 @@ export {
   USERS_DB_USER,
   USERS_DB_PASSWORD,
 
-  JWT_SECRET,
-  EXPIRES_IN
 };

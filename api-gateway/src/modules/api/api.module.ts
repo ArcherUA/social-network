@@ -1,8 +1,9 @@
 import {Module} from "@nestjs/common";
 import {ClientsModule, Transport} from "@nestjs/microservices";
 
-import {MessagesController, PostsController, UsersController} from './controllers';
-import {MessagesService, PostsService, UsersService} from './services';
+import {MessagesController,MessagesService} from './messages';
+import {PostsController, PostsService} from './posts';
+import {UsersController,UsersService} from './users';
 import {
   RABBITMQ_USERNAME,
   RABBITMQ_PASSWORD,

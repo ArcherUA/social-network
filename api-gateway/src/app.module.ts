@@ -1,17 +1,30 @@
 import {Module} from '@nestjs/common';
-
-import {ApiModule} from './modules/api/api.module';
 import {ClientsModule, Transport} from "@nestjs/microservices";
+import {PassportModule} from '@nestjs/passport'
+import {JwtModule} from '@nestjs/jwt'
+
 import {
   RABBITMQ_PASSWORD,
   RABBITMQ_USERNAME,
   RMQ_DISTRIBUTOR_HOST,
-  RMQ_DISTRIBUTOR_PORT
+  RMQ_DISTRIBUTOR_PORT,
+
+  JWT_SECRET,
+  EXPIRES_IN
 } from "./config";
+import {ApiModule} from './modules/api/api.module';
 
 @Module({
   imports: [
     ApiModule,
+
+    PassportModule.register({defaultStrategy: 'jwt'}),
+    JwtModule.register({
+      secret: JWT_SECRET,
+      signOptions: {
+        expiresIn: EXPIRES_IN
+      }
+    }),
 
     ClientsModule.register([
       {
@@ -33,4 +46,4 @@ import {
   providers: [],
 })
 export class AppModule {
-}
+};

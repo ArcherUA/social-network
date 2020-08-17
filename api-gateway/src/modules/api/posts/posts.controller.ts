@@ -2,7 +2,7 @@ import {Controller, Get, Post, Put} from "@nestjs/common";
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 import {Request, Response} from 'express';
 
-import {PostsService} from '../services/posts.service';
+import {PostsService} from './posts.service';
 
 @Controller('posts')
 @ApiUseTags('posts')

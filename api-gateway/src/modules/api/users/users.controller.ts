@@ -3,7 +3,7 @@ import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 import {ClientProxy} from '@nestjs/microservices';
 import {Request} from 'express';
 
-import {UsersService} from '../services/users.service';
+import {UsersService} from './users.service';
 
 @Controller('users')
 @ApiUseTags('users')

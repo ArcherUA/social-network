@@ -15,6 +15,8 @@ const {
   RABBITMQ_USERNAME,
   RABBITMQ_PASSWORD,
 
+  JWT_SECRET,
+  EXPIRES_IN
 } = getEnv(envSchema);
 
 export {
@@ -30,4 +32,7 @@ export {
 
   RABBITMQ_USERNAME,
   RABBITMQ_PASSWORD,
+
+  JWT_SECRET,
+  EXPIRES_IN
 };

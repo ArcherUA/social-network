@@ -1,7 +1,7 @@
 import {Controller, Post, Get} from '@nestjs/common';
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 
-import {MessagesService} from '../services/messages.service';
+import {MessagesService} from './messages.service';
 
 // import { MessagingGateway } from '../socket-gateway/socket.gateway'
 @Controller('message')
