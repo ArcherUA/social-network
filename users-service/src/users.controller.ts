@@ -40,4 +40,8 @@ export class UsersController {
   async loginUser(@Payload() {email,password}) {
     return await this.usersService.loginUser(email, password)
   }
+  @MessagePattern({cmd: UsersCommand.FIND_ONE_BY_EMAIL})
+  async findOneByEmail(@Payload() {email}) {
+    return await this.usersService.findOneByEmail(email)
+  }
 }

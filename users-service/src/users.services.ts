@@ -78,10 +78,10 @@ export class UsersService {
       }
     })
     if (!verifyUser) {
-      throw new UnauthorizedException(this.INVALID_PAS_EMAIL)
+      return this.INVALID_PAS_EMAIL;
     };
     if (!(Md5.init(password) === verifyUser.password)) {
-      throw new UnauthorizedException(this.INVALID_PAS_EMAIL)
+      return this.INVALID_PAS_EMAIL;
     };
     return this.tokenService.createToken(verifyUser.id.toString(), email);
   }

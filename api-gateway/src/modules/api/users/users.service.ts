@@ -1,8 +1,6 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {UsersCommand} from "../../../common/enums/users.command.enums";
 import {ClientProxy} from '@nestjs/microservices';
-import {RegisterUserDto} from "../dto/register-user.dto";
-
 
 @Injectable()
 export class UsersService {
@@ -34,9 +32,16 @@ export class UsersService {
     return this.rmqClient
       .send(pattern, id);
   };
-  async loginUser(email,password) {
+
+  async loginUser(email, password) {
     const pattern = {cmd: UsersCommand.LOGIN_USER};
     return this.rmqClient
-      .send(pattern,{email,password})
+      .send(pattern, {email, password});
+  }
+
+  async findOneByEmail(email) {
+    const pattern = {cmd: UsersCommand.FIND_ONE_BY_EMAIL}
+    return this.rmqClient
+      .send(pattern, {email});
   }
 }

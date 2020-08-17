@@ -13,11 +13,11 @@ import {
   EXPIRES_IN
 } from "./config";
 import {ApiModule} from './modules/api/api.module';
+import {JwtStrategy} from './strategies/jwt.strategy'
 
 @Module({
   imports: [
     ApiModule,
-
     PassportModule.register({defaultStrategy: 'jwt'}),
     JwtModule.register({
       secret: JWT_SECRET,
@@ -43,7 +43,8 @@ import {ApiModule} from './modules/api/api.module';
     ]),
   ],
   controllers: [],
-  providers: [],
+  providers: [JwtStrategy],
+
 })
 export class AppModule {
 };

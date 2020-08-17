@@ -11,19 +11,19 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {
   }
 
-  @Post('new-post')
+  @Post('create')
   @ApiOperation({title: 'Create new post'})
   async newPost() {
     return await this.postsService.newPost();
   }
 
-  @Post('edit-post')
+  @Post('edit')
   @ApiOperation({title: 'Edit post'})
   async editPost() {
     return await this.postsService.editPost();
   }
 
-  @Post('delete-post')
+  @Post('delete')
   @ApiOperation({title: 'Delete post'})
   async deletePost() {
     return await this.postsService.deletePost();

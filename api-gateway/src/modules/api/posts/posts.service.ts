@@ -1,42 +1,90 @@
-import {Injectable} from "@nestjs/common";
+import {Inject, Injectable} from "@nestjs/common";
+import {ClientProxy} from '@nestjs/microservices';
 
+import {PostsCommand} from '../../../common/enums/posts.command.enums'
 
 @Injectable()
 export class PostsService {
 
-  async newPost() {
-    return null;
+  constructor(
+    @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy) {
+
   }
 
-  async editPost() {
-    return null;
+  async newPost(data) {
+    const pattern = {cmd: PostsCommand.NEW_POST};
+
+    return this.rmqClient
+      .send(pattern, data)
+  }
+
+  async editPost(data) {
+    const pattern = {cmd: PostsCommand.EDIT_POST};
+
+    return this.rmqClient
+      .send(pattern, data)
   }
 
   async deletePost() {
-    return null;
+    const pattern = {cmd: PostsCommand.DELETE_POST};
+
+    return this.rmqClient
+      .send(pattern, data)
   }
 
   async getPost() {
-    return null;
+    const pattern = {cmd: PostsCommand.GET_POST};
+
+    return this.rmqClient
+      .send(pattern, data)
   }
 
   async addComment() {
-    return null;
+    const pattern = {cmd: PostsCommand.ADD_COMMENT};
+
+    return this.rmqClient
+      .send(pattern, data);
   }
 
   async deleteComment() {
-    return null;
+    const pattern = {cmd: PostsCommand.DELETE_COMMENT};
+
+    return this.rmqClient
+      .send(pattern, data);
   }
 
   async editComment() {
-    return null;
+    const pattern = {cmd: PostsCommand.EDIT_COMMENT};
+
+    return this.rmqClient
+      .send(pattern, data);
+  }
+
+  async likeComment() {
+    const pattern = {cmd: PostsCommand.LIKE_COMMENT};
+
+    return this.rmqClient
+      .send(pattern, data);
   }
 
   async likePost() {
-    return null;
+    const pattern = {cmd: PostsCommand.LIKE_POST};
+
+    return this.rmqClient
+      .send(pattern, data);
   }
 
-  async getLikeList() {
-    return null;
+  async getLikeListPost() {
+    const pattern = {cmd: PostsCommand.GET_LIKE_LIST_POST};
+
+    return this.rmqClient
+      .send(pattern, data);
+  }
+
+  async getLikeListComment() {
+    const pattern = {cmd: PostsCommand.GET_LIKE_LIST_COMMENT};
+
+    return this.rmqClient
+      .send(pattern, data);
   }
 }

@@ -38,6 +38,9 @@ import {
     PostsService,
     UsersService,
   ],
+  exports: [
+    UsersService,
+  ]
 })
 export class ApiModule {
 }
