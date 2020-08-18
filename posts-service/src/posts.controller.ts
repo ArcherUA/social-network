@@ -10,6 +10,7 @@ import {
   CommentDto,
   EditCommentDto
 } from '../src/dto/index';
+import {PostsService} from "./posts.service";
 
 @Injectable()
 @Controller()
@@ -17,57 +18,58 @@ import {
 export class UsersController {
 
   constructor(
+    private readonly postsService: PostsService,
     @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy,
   ) {
   }
 
   @MessagePattern({cmd: PostsCommand.NEW_POST})
   async newPost(@Payload() data: CreatePostDto) {
-    return null
+    return this.postsService.newPost(data)
   };
 
   @MessagePattern({cmd: PostsCommand.EDIT_POST})
   async editPost(@Payload() data: EditPostDto) {
-    return null
+    return this.postsService.editPost(data)
   };
 
   @MessagePattern({cmd: PostsCommand.DELETE_POST})
   async deletePost(@Payload() id: string) {
-    return null
+    return this.postsService.deletePost(id)
   };
 
   @MessagePattern({cmd: PostsCommand.GET_POST})
   async getPost(@Payload() id: string) {
-    return null
+    return this.postsService.getPost(id)
   };
 
   @MessagePattern({cmd: PostsCommand.ADD_COMMENT})
   async addComment(@Payload() data: CommentDto) {
-    return null
+    return this.postsService.addComment(data)
   }
 
   @MessagePattern({cmd: PostsCommand.DELETE_COMMENT})
   async deleteComment(@Payload() id: string) {
-    return null
+    return this.postsService.deleteComment(id)
   }
 
   @MessagePattern({cmd: PostsCommand.EDIT_COMMENT})
   async editComment(@Payload() data: EditCommentDto) {
-    return null
+    return this.postsService.editComment(data)
   }
 
   @MessagePattern({cmd: PostsCommand.LIKE_POST})
   async likePost(@Payload() id: string) {
-    return null
+    return this.postsService.likePost(id)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})
   async getLikeListComment(@Payload() id: string) {
-    return null
+    return this.postsService.getLikeListComment(id)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_POST})
   async getLikeListPost(@Payload() id: string) {
-    return null
+    return this.postsService.getLikeListPost(id)
   }
 }

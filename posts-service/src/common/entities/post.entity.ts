@@ -3,7 +3,7 @@ import {BaseEntity} from "./base.entity";
 
 
 @Entity({name: 'users'})
-export class User extends BaseEntity<User> {
+export class Post extends BaseEntity<Post> {
 
   @Column()
   title: string;
@@ -12,12 +12,12 @@ export class User extends BaseEntity<User> {
   content: string;
 
   @Column()
-  likeList: string;
+  likes: number;
 
   @Column()
-  commentList: string;
+  commentList: number;
 
   @Column()
-  author: string;
+  authorId: number;
 
 }
