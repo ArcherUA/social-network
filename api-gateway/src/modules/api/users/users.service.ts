@@ -1,6 +1,7 @@
 import {Inject, Injectable} from "@nestjs/common";
-import {UsersCommand} from "../../../common/enums/users.command.enums";
 import {ClientProxy} from '@nestjs/microservices';
+
+import {UsersCommand} from "../../../common/enums/users.command.enums";
 
 @Injectable()
 export class UsersService {

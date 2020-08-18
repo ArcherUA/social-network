@@ -1,0 +1,73 @@
+import {Controller, Inject, Injectable} from '@nestjs/common';
+import {ApiUseTags} from '@nestjs/swagger';
+import {ClientProxy, MessagePattern, Payload} from '@nestjs/microservices';
+
+import {PostsCommand} from './common/enums/posts.command.enums'
+
+import {
+  CreatePostDto,
+  EditPostDto,
+  CommentDto,
+  EditCommentDto
+} from '../src/dto/index';
+
+@Injectable()
+@Controller()
+@ApiUseTags('users')
+export class UsersController {
+
+  constructor(
+    @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy,
+  ) {
+  }
+
+  @MessagePattern({cmd: PostsCommand.NEW_POST})
+  async newPost(@Payload() data: CreatePostDto) {
+    return null
+  };
+
+  @MessagePattern({cmd: PostsCommand.EDIT_POST})
+  async editPost(@Payload() data: EditPostDto) {
+    return null
+  };
+
+  @MessagePattern({cmd: PostsCommand.DELETE_POST})
+  async deletePost(@Payload() id: string) {
+    return null
+  };
+
+  @MessagePattern({cmd: PostsCommand.GET_POST})
+  async getPost(@Payload() id: string) {
+    return null
+  };
+
+  @MessagePattern({cmd: PostsCommand.ADD_COMMENT})
+  async addComment(@Payload() data: CommentDto) {
+    return null
+  }
+
+  @MessagePattern({cmd: PostsCommand.DELETE_COMMENT})
+  async deleteComment(@Payload() id: string) {
+    return null
+  }
+
+  @MessagePattern({cmd: PostsCommand.EDIT_COMMENT})
+  async editComment(@Payload() data: EditCommentDto) {
+    return null
+  }
+
+  @MessagePattern({cmd: PostsCommand.LIKE_POST})
+  async likePost(@Payload() id: string) {
+    return null
+  }
+
+  @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})
+  async getLikeListComment(@Payload() id: string) {
+    return null
+  }
+
+  @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_POST})
+  async getLikeListPost(@Payload() id: string) {
+    return null
+  }
+}

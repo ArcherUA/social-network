@@ -27,6 +27,20 @@ import {
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'POSTS_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
+          queue: 'users_queue',
+          queueOptions: {
+            durable: false,
+            noAck: true,
+          },
+        },
+      },
+    ]),
   ],
   controllers: [
     MessagesController,
@@ -40,6 +54,8 @@ import {
   ],
   exports: [
     UsersService,
+    PostsService,
+    MessagesService,
   ]
 })
 export class ApiModule {

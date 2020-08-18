@@ -26,3 +26,4 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   JWT_SECRET: Joi.string(),
   EXPIRES_IN: Joi.string()
 });
+

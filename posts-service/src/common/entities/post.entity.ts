@@ -1,4 +1,4 @@
-import {Entity, Column, OneToMany} from 'typeorm';
+import {Entity, Column} from 'typeorm';
 import {BaseEntity} from "./base.entity";
 
 
@@ -6,10 +6,10 @@ import {BaseEntity} from "./base.entity";
 export class User extends BaseEntity<User> {
 
   @Column()
-  head: string;
+  title: string;
 
   @Column()
-  text: string;
+  content: string;
 
   @Column()
   likeList: string;
