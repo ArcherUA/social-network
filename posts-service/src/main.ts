@@ -6,7 +6,7 @@ import {
   RMQ_DISTRIBUTOR_PORT,
   RABBITMQ_PASSWORD,
   RABBITMQ_USERNAME
-} from './config/index'
+} from './config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +16,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
-      queue: 'users_queue',
+      queue: 'posts_queue',
       queueOptions: {
         durable: false,
         noAck: true,

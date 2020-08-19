@@ -11,24 +11,4 @@ export class EditPostDto {
   })
   content: string;
 
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Like list',
-    required: false,
-  })
-  likeList: number;
-
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Comment list',
-    required: false,
-  })
-  commentList: number;
-
-  @IsString()
-  @ApiModelProperty({
-    description: 'Post author',
-    required: false,
-  })
-  author: string;
 }

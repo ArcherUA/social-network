@@ -14,14 +14,16 @@ export class CreatePostDto {
   @IsNumber()
   @ApiModelProperty({
     description: 'Like list',
-    required: true,
+    required: false,
+    default: 0,
   })
   likeList: number;
 
   @IsNumber()
   @ApiModelProperty({
     description: 'Comment list',
-    required: true,
+    required: false,
+    default: 0,
   })
   commentList: number;
 
@@ -30,5 +32,5 @@ export class CreatePostDto {
     description: 'Post author',
     required: true,
   })
-  author: string;
+  authorId: number;
 }

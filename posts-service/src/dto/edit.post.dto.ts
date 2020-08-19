@@ -3,6 +3,14 @@ import {ApiModelProperty} from '@nestjs/swagger';
 
 export class EditPostDto {
 
+  @IsNumber()
+  @ApiModelProperty({
+    description: 'Id post',
+    required: false,
+    example: '124513',
+  })
+  id: number;
+
   @IsString()
   @ApiModelProperty({
     description: 'Post content',
@@ -11,24 +19,4 @@ export class EditPostDto {
   })
   content: string;
 
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Like list',
-    required: false,
-  })
-  likeList: number;
-
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Comment list',
-    required: false,
-  })
-  commentList: number;
-
-  @IsString()
-  @ApiModelProperty({
-    description: 'Post author',
-    required: false,
-  })
-  author: string;
 }

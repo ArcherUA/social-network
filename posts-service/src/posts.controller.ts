@@ -9,13 +9,13 @@ import {
   EditPostDto,
   CommentDto,
   EditCommentDto
-} from '../src/dto/index';
+} from './dto';
 import {PostsService} from "./posts.service";
 
 @Injectable()
 @Controller()
 @ApiUseTags('users')
-export class UsersController {
+export class PostsController {
 
   constructor(
     private readonly postsService: PostsService,
@@ -59,8 +59,8 @@ export class UsersController {
   }
 
   @MessagePattern({cmd: PostsCommand.LIKE_POST})
-  async likePost(@Payload() id: string) {
-    return this.postsService.likePost(id)
+  async likePost(@Payload() id: string, userId: string) {
+    return this.postsService.likePost(id, userId)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})

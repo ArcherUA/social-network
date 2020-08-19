@@ -5,7 +5,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
     .valid(['development', 'production', 'local', 'debug'])
     .required(),
 
-  API_PORT: Joi.number().default(3001),
+  API_GATEWAY_PORT: Joi.number().default(3001),
   API_HOST: Joi.string().default('api'),
 
   WEBSOCKET_PORT: Joi.number().default(3002),

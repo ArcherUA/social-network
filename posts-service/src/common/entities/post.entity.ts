@@ -1,23 +1,23 @@
-import {Entity, Column} from 'typeorm';
+import {Entity, Column, OneToMany} from 'typeorm';
 import {BaseEntity} from "./base.entity";
+import {Avatar} from "../../../../users-service/src/common/entities/avatar.entity";
 
 
-@Entity({name: 'users'})
+@Entity({name: 'posts'})
 export class Post extends BaseEntity<Post> {
-
-  @Column()
-  title: string;
 
   @Column()
   content: string;
 
-  @Column()
+  @Column({default: 0})
   likes: number;
 
-  @Column()
+  @Column({default: 0})
   commentList: number;
 
   @Column()
   authorId: number;
 
+  // @OneToMany(() => Avatar, avatar => avatar.user)
+  // like: Avatar[];
 }

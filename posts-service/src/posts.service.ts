@@ -14,6 +14,7 @@ import {Post} from "./common/entities/post.entity";
 @Injectable()
 export class PostsService {
 
+  private readonly UNKNOWN_ERROR = 'Unknown error'
   public constructor(
     @InjectRepository(Post)
     protected readonly postRepository: Repository<Post>,
@@ -26,9 +27,13 @@ export class PostsService {
     return await this.postRepository.save(post)
   }
 
-  async editPost(data: EditPostDto) { // ADD COLUMN @ID@ IN EDIT_POST_DTO
-    const post = await this.postRepository.findOne() //FIND POST AND OBJECT ASSIGN (UPDATE DATA)
-    return await this.postRepository.save(data)
+  async editPost(data: EditPostDto) { // ADD COLUMN 'ID' IN EDIT_POST_DTO
+    const post = await this.postRepository.findOne(data.id)
+    if (post) {
+      const updatePost = {...data}
+      return await this.postRepository.update(data.id,updatePost)
+    }
+    return this.UNKNOWN_ERROR
   }
 
   async deletePost(id: string) {
@@ -55,10 +60,14 @@ export class PostsService {
     return null //CREATE
   }
 
-  async likePost(id: string) {
+  async likePost(id: string, userId: string) {
     const likedPost = await this.postRepository.findOne(id)
     if (likedPost) {
-      const addLike = likedPost.likes++
+      if () {
+
+      }
+      const addLike = +likedPost.likes + 1
+      console.log(addLike)
       return await this.postRepository.update(id, {likes: addLike})
     }
   }

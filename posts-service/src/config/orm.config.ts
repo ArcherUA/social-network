@@ -5,7 +5,6 @@ import {
   POSTS_DB_NAME,
   POSTS_DB_USER,
   POSTS_DB_PASSWORD,
-
 } from './index';
 
 export const POSTS_DB_CONFIG = {

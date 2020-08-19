@@ -10,6 +10,8 @@ import {
 } from "./config/index";
 import {POSTS_DB_CONFIG} from "./config/orm.config";
 import {Post} from "./common/entities/post.entity";
+import {PostsController} from "./posts.controller";
+import {PostsService} from "./posts.service";
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import {Post} from "./common/entities/post.entity";
         options: {
           noAck: false,
           urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
-          queue: 'users_queue',
+          queue: 'posts_queue',
           queueOptions: {
             durable: true,
             noAck: true,
@@ -32,7 +34,7 @@ import {Post} from "./common/entities/post.entity";
       },
     ])
   ],
-  controllers: [],
-  providers: [],
+  controllers: [PostsController],
+  providers: [PostsService],
 })
 export class AppModule {}

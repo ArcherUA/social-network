@@ -40,7 +40,6 @@ export class PostsService {
 
   async getPost(id: string) {
     const pattern = {cmd: PostsCommand.GET_POST};
-
     return this.rmqClient
       .send(pattern, id)
   }
@@ -73,11 +72,11 @@ export class PostsService {
       .send(pattern, id);
   }
 
-  async likePost(id: string) {
+  async likePost(id: string, userId: string) {
     const pattern = {cmd: PostsCommand.LIKE_POST};
 
     return this.rmqClient
-      .send(pattern, id);
+      .send(pattern, {id, userId});
   }
 
   async getLikeListPost(id: string) {
