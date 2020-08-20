@@ -9,15 +9,18 @@ import {
   CommentDto,
   EditCommentDto
 } from '../src/dto/index';
-import {Post} from "./common/entities/post.entity";
+import {Post, Like} from "./common/entities";
 
 @Injectable()
 export class PostsService {
 
   private readonly UNKNOWN_ERROR = 'Unknown error'
+
   public constructor(
     @InjectRepository(Post)
     protected readonly postRepository: Repository<Post>,
+    @InjectRepository(Like)
+    protected readonly likeRepository: Repository<Like>,
     @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy) {
 
   }
@@ -31,7 +34,7 @@ export class PostsService {
     const post = await this.postRepository.findOne(data.id)
     if (post) {
       const updatePost = {...data}
-      return await this.postRepository.update(data.id,updatePost)
+      return await this.postRepository.update(data.id, updatePost)
     }
     return this.UNKNOWN_ERROR
   }
@@ -60,16 +63,24 @@ export class PostsService {
     return null //CREATE
   }
 
-  async likePost(id: string, userId: string) {
-    const likedPost = await this.postRepository.findOne(id)
+  async likePost(postId: string, userId: string) {
+    const likedPost = await this.postRepository.findOne(postId)
+    // VERIFY USER
     if (likedPost) {
-      if () {
-
+      const liked = await this.likeRepository.findOne({
+        where: {
+          postId: postId,
+          userId: userId,
+        }
+      })
+      if (liked) {
+        return this.likeRepository.delete(liked.id)
+      } else {
+        const like = new Like({postId, userId})
+        return this.likeRepository.save(like)
       }
-      const addLike = +likedPost.likes + 1
-      console.log(addLike)
-      return await this.postRepository.update(id, {likes: addLike})
     }
+    return this.UNKNOWN_ERROR
   }
 
   async getLikeListPost(id: string) {

@@ -59,8 +59,8 @@ export class PostsController {
   }
 
   @MessagePattern({cmd: PostsCommand.LIKE_POST})
-  async likePost(@Payload() id: string, userId: string) {
-    return this.postsService.likePost(id, userId)
+  async likePost(@Payload() {postId, userId}) {
+    return this.postsService.likePost(postId, userId)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})

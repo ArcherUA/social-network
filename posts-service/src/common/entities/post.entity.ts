@@ -1,7 +1,7 @@
-import {Entity, Column, OneToMany} from 'typeorm';
+import {Entity, Column, OneToMany, ManyToMany, JoinTable} from 'typeorm';
 import {BaseEntity} from "./base.entity";
-import {Avatar} from "../../../../users-service/src/common/entities/avatar.entity";
 
+import {Like} from './like.entity'
 
 @Entity({name: 'posts'})
 export class Post extends BaseEntity<Post> {
@@ -18,6 +18,6 @@ export class Post extends BaseEntity<Post> {
   @Column()
   authorId: number;
 
-  // @OneToMany(() => Avatar, avatar => avatar.user)
-  // like: Avatar[];
+  @OneToMany(type => Like, like => like.postId)
+  like: Like[]
 }

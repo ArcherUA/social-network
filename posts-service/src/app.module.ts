@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {ClientsModule, Transport} from "@nestjs/microservices";
 
@@ -9,14 +9,14 @@ import {
   RMQ_DISTRIBUTOR_PORT
 } from "./config/index";
 import {POSTS_DB_CONFIG} from "./config/orm.config";
-import {Post} from "./common/entities/post.entity";
+import {Post, Like} from "./common/entities/index";
 import {PostsController} from "./posts.controller";
 import {PostsService} from "./posts.service";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post]}),
-    TypeOrmModule.forFeature([Post]),
+    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like]}),
+    TypeOrmModule.forFeature([Post, Like]),
 
     ClientsModule.register([
       {
@@ -37,4 +37,5 @@ import {PostsService} from "./posts.service";
   controllers: [PostsController],
   providers: [PostsService],
 })
-export class AppModule {}
+export class AppModule {
+}
