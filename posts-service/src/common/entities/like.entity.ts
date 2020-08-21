@@ -3,7 +3,7 @@ import {BaseEntity} from "./base.entity";
 
 import {Post} from "./post.entity";
 
-@Entity({name: 'Like'})
+@Entity({name: 'likes'})
 export class Like extends BaseEntity<Like> {
 
   @Column()
@@ -12,6 +12,6 @@ export class Like extends BaseEntity<Like> {
   @Column()
   userId: string;
 
-  @ManyToOne(type => Post, post => post.like)
+  @ManyToOne(type => Post, post => post.likes)
   post: Post[];
 }

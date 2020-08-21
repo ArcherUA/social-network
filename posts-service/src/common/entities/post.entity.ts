@@ -10,7 +10,7 @@ export class Post extends BaseEntity<Post> {
   content: string;
 
   @Column({default: 0})
-  likes: number;
+  like: number;
 
   @Column({default: 0})
   commentList: number;
@@ -18,6 +18,6 @@ export class Post extends BaseEntity<Post> {
   @Column()
   authorId: number;
 
-  @OneToMany(type => Like, like => like.postId)
-  like: Like[]
+  @OneToMany(type => Like, likes => likes.postId)
+  likes: Like[]
 }

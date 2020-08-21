@@ -1,7 +1,7 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {ClientProxy} from '@nestjs/microservices';
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from 'typeorm';
+import {Repository, getRepository} from 'typeorm';
 
 import {
   CreatePostDto,
@@ -30,7 +30,7 @@ export class PostsService {
     return await this.postRepository.save(post)
   }
 
-  async editPost(data: EditPostDto) { // ADD COLUMN 'ID' IN EDIT_POST_DTO
+  async editPost(data: EditPostDto) {
     const post = await this.postRepository.findOne(data.id)
     if (post) {
       const updatePost = {...data}
@@ -84,8 +84,11 @@ export class PostsService {
   }
 
   async getLikeListPost(id: string) {
-    const post = await this.postRepository.findOne(id)
-    return post.likes
+    const like = await getRepository(Like)
+      .createQueryBuilder('like')
+      .where('like.postId=:id', {id: id})
+      .getCount()
+    return like
   }
 
   async getLikeListComment(id: string) {
