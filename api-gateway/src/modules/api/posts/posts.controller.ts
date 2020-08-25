@@ -4,17 +4,20 @@ import {
   Get,
   Delete,
   Put,
-  Req,
   Param,
   UseGuards,
   Body,
 } from "@nestjs/common";
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
 import {AuthGuard} from "@nestjs/passport";
-import {Request} from 'express';
 
 import {PostsService} from './posts.service';
-import {CreatePostDto, EditPostDto} from "../dto";
+import {
+  CommentDto,
+  CreatePostDto,
+  EditCommentDto,
+  EditPostDto
+} from "../dto";
 
 @Controller('posts')
 @ApiUseTags('posts')
@@ -61,8 +64,7 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Post('add-comment')
   @ApiOperation({title: 'Add comment'})
-  async addComment(@Req() request: Request) {
-    const data = request.body
+  async addComment(@Body() data: CommentDto) {
     return await this.postsService.addComment(data);
   }
 
@@ -78,8 +80,7 @@ export class PostsController {
   @ApiOperation({title: 'Edit comment'})
   async editComment(
     @Param('id') id: number,
-    @Req() request: Request) {
-    const data = request.body
+    @Body() data: EditCommentDto) {
     return await this.postsService.editComment(data, id);
   }
 
@@ -88,8 +89,7 @@ export class PostsController {
   @ApiOperation({title: 'Like post'})
   async likePost(
     @Param('id') id: string,
-    @Req() request: Request) {
-    const userId = request.body.userId
+    @Body() userId: string) {
     return await this.postsService.likePost(id, userId);
   }
 
