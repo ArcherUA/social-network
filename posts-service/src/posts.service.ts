@@ -28,11 +28,11 @@ export class PostsService {
     return await this.postRepository.save(post)
   }
 
-  async editPost(data) {
-    const post = await this.postRepository.findOne(data.id)
+  async editPost(data,postId) {
+    const post = await this.postRepository.findOne(postId)
     if (post) {
       const updatePost = {...data}
-      return await this.postRepository.update(data.id, updatePost)
+      return await this.postRepository.update(postId, updatePost)
     }
     return this.UNKNOWN_ERROR
   }
@@ -55,8 +55,13 @@ export class PostsService {
   }
 
   async addComment(data) {
-    const comment = new Comment(data)
-    return this.commentRepository.save(comment)
+    const post = await this.postRepository.findOne(data.post)
+    if (post) {
+      const comment = new Comment(data)
+      return this.commentRepository.save(comment)
+    } else {
+      return this.UNKNOWN_ERROR
+    }
   }
 
   async deleteComment(id: number) {
@@ -74,7 +79,6 @@ export class PostsService {
 
   async likePost(postId: number, userId: number) {
     const likedPost = await this.postRepository.findOne(postId)
-    // VERIFY USER
     if (likedPost) {
       const liked = await this.likeRepository.findOne({
         where: {
@@ -93,7 +97,7 @@ export class PostsService {
   }
 
   async likeComment(commentId: number, userId: number) {
-    const likedComment = await this.likeCommentRepository.findOne(commentId)
+    const likedComment = this.commentRepository.findOne(commentId)
     if (likedComment) {
       const liked = await this.likeCommentRepository.findOne({
         where: {
@@ -120,6 +124,10 @@ export class PostsService {
   }
 
   async getLikeListComment(id: number) {
-    return null
+    const like = await getRepository(LikeComment)
+      .createQueryBuilder('like')
+      .where('like.commentId=:id', {id: id})
+      .getCount()
+    return like
   }
 }

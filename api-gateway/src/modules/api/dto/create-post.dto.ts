@@ -11,19 +11,6 @@ export class CreatePostDto {
   })
   content: string;
 
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Like list',
-    required: true,
-  })
-  likeList: number;
-
-  @IsNumber()
-  @ApiModelProperty({
-    description: 'Comment list',
-    required: true,
-  })
-  commentList: number;
 
   @IsString()
   @ApiModelProperty({

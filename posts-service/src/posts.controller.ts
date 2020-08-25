@@ -23,8 +23,8 @@ export class PostsController {
   };
 
   @MessagePattern({cmd: PostsCommand.EDIT_POST})
-  async editPost(@Payload() data) {
-    return this.postsService.editPost(data)
+  async editPost(@Payload() {data, postId}) {
+    return this.postsService.editPost(data,postId)
   };
 
   @MessagePattern({cmd: PostsCommand.DELETE_POST})
@@ -52,7 +52,6 @@ export class PostsController {
     return this.postsService.deleteComment(id)
   }
 
-  // ADD EDIT_COMMENT_DTO
   @MessagePattern({cmd: PostsCommand.EDIT_COMMENT})
   async editComment(@Payload() {data, id}) {
     return this.postsService.editComment(data, id)
@@ -60,12 +59,12 @@ export class PostsController {
 
   @MessagePattern({cmd: PostsCommand.LIKE_POST})
   async likePost(@Payload() {postId, userId}) {
-    return this.postsService.likePost(postId, userId)
+    return this.postsService.likePost(postId, +userId.userId)
   }
 
   @MessagePattern({cmd: PostsCommand.LIKE_COMMENT})
   async likeComment(@Payload() {commentId, userId}) {
-    return this.postsService.likeComment(commentId, userId)
+    return this.postsService.likeComment(commentId, +userId.userId)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})

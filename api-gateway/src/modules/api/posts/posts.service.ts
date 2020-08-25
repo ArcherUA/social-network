@@ -18,11 +18,11 @@ export class PostsService {
       .send(pattern, data)
   }
 
-  async editPost(data) {
+  async editPost(data,postId) {
     const pattern = {cmd: PostsCommand.EDIT_POST};
 
     return this.rmqClient
-      .send(pattern, data)
+      .send(pattern, {data,postId})
   }
 
   async deletePost(id: number) {

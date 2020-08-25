@@ -34,10 +34,13 @@ export class PostsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('edit')
+  @Post('edit/:postId')
   @ApiOperation({title: 'Edit post'})
-  async editPost(@Body() data: EditPostDto) {
-    return await this.postsService.editPost(data);
+  async editPost(
+    @Body() data: EditPostDto,
+    @Param('postId') postId: number
+  ) {
+    return await this.postsService.editPost(data,postId);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -94,7 +97,7 @@ export class PostsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Put('likeComment/:id')
+  @Put('like-comment/:commentId')
   @ApiOperation({title: 'Like comment'})
   async likeComment(
     @Param('commentId') commentId: number,
