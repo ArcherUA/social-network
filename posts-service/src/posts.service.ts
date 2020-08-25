@@ -8,8 +8,8 @@ import {
   EditPostDto,
   CommentDto,
   EditCommentDto
-} from '../src/dto/index';
-import {Post, Like} from "./common/entities";
+} from './dto';
+import {Post, Like, Comment} from "./common/entities";
 
 @Injectable()
 export class PostsService {
@@ -21,6 +21,8 @@ export class PostsService {
     protected readonly postRepository: Repository<Post>,
     @InjectRepository(Like)
     protected readonly likeRepository: Repository<Like>,
+    @InjectRepository(Comment)
+    protected readonly commentRepository: Repository<Comment>,
     @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy) {
 
   }
@@ -44,23 +46,34 @@ export class PostsService {
   }
 
   async getPost(id: string) {
-    return await this.postRepository.findOne(id)
+    return await this.postRepository.findOne({
+      where: {id: id},
+      relations: ['likes', 'comment']
+    });
+  }
+
+  async getPosts() {
+    return await this.postRepository.find({
+      relations: ['likes', 'comment']
+    })
   }
 
   async addComment(data: CommentDto) {
-    return null //CREATE
+    const comment = new Comment(data)
+    return this.commentRepository.save(comment)
   }
 
-  async deleteComment(id: string) {
-    return null //CREATE
+  async deleteComment(id: number) {
+    return this.commentRepository.delete(id)
   }
 
-  async editComment(data: EditCommentDto) {
-    return null //CREATE
-  }
-
-  async likeComment(data) {
-    return null //CREATE
+  async editComment(data: EditCommentDto, id: number) {
+    const comment = await this.commentRepository.findOne(id)
+    if (comment) {
+      const updateComment = {...data}
+      return await this.commentRepository.update(id, updateComment)
+    }
+    return this.UNKNOWN_ERROR
   }
 
   async likePost(postId: string, userId: string) {

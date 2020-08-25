@@ -7,16 +7,16 @@ import {
   RABBITMQ_USERNAME,
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT
-} from "./config/index";
+} from "./config";
 import {POSTS_DB_CONFIG} from "./config/orm.config";
-import {Post, Like} from "./common/entities/index";
+import {Post, Like, Comment} from "./common/entities";
 import {PostsController} from "./posts.controller";
 import {PostsService} from "./posts.service";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like]}),
-    TypeOrmModule.forFeature([Post, Like]),
+    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like, Comment]}),
+    TypeOrmModule.forFeature([Post, Like, Comment]),
 
     ClientsModule.register([
       {

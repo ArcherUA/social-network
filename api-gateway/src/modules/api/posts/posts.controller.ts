@@ -6,14 +6,15 @@ import {
   Put,
   Req,
   Param,
-  Inject,
-  UseGuards
+  UseGuards,
+  Body,
 } from "@nestjs/common";
 import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
-import {Request, Response} from 'express';
+import {AuthGuard} from "@nestjs/passport";
+import {Request} from 'express';
 
 import {PostsService} from './posts.service';
-import {AuthGuard} from "@nestjs/passport";
+import {CreatePostDto, EditPostDto} from "../dto";
 
 @Controller('posts')
 @ApiUseTags('posts')
@@ -25,16 +26,14 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
   @ApiOperation({title: 'Create new post'})
-  async newPost(@Req() request: Request) {
-    const data = request.body
+  async newPost(@Body() data: CreatePostDto) {
     return await this.postsService.newPost(data);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('edit')
   @ApiOperation({title: 'Edit post'})
-  async editPost(@Req() request: Request) {
-    const data = request.body
+  async editPost(@Body() data: EditPostDto) {
     return await this.postsService.editPost(data);
   }
 
@@ -53,6 +52,13 @@ export class PostsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('get-posts')
+  @ApiOperation({title: 'Get all post'})
+  async getPosts() {
+    return await this.postsService.getPosts()
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Post('add-comment')
   @ApiOperation({title: 'Add comment'})
   async addComment(@Req() request: Request) {
@@ -61,19 +67,20 @@ export class PostsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete('delete-comment')
+  @Delete('delete-comment/:id')
   @ApiOperation({title: 'Delete comment'})
-  async deleteComment(@Req() request: Request) {
-    const id = request.body.data.id
+  async deleteComment(@Param('id') id: number) {
     return await this.postsService.deleteComment(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('edit-comment')
+  @Post('edit-comment/:id')
   @ApiOperation({title: 'Edit comment'})
-  async editComment(@Req() request: Request) {
+  async editComment(
+    @Param('id') id: number,
+    @Req() request: Request) {
     const data = request.body
-    return await this.postsService.editComment(data);
+    return await this.postsService.editComment(data, id);
   }
 
   @UseGuards(AuthGuard('jwt'))

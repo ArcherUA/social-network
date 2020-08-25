@@ -44,6 +44,13 @@ export class PostsService {
       .send(pattern, id)
   }
 
+  async getPosts() {
+    const pattern = {cmd: PostsCommand.GET_POSTS};
+
+    return this.rmqClient
+      .send(pattern,{})
+  }
+
   async addComment(data: CommentDto) {
     const pattern = {cmd: PostsCommand.ADD_COMMENT};
 
@@ -51,18 +58,17 @@ export class PostsService {
       .send(pattern, data);
   }
 
-  async deleteComment(id: string) {
+  async deleteComment(id: number) {
     const pattern = {cmd: PostsCommand.DELETE_COMMENT};
 
     return this.rmqClient
       .send(pattern, id);
   }
 
-  async editComment(data: EditCommentDto) {
+  async editComment(data,id) {
     const pattern = {cmd: PostsCommand.EDIT_COMMENT};
-
     return this.rmqClient
-      .send(pattern, data);
+      .send(pattern, {data, id});
   }
 
   async likeComment(id: string) {

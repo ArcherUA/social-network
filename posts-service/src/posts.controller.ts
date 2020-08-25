@@ -43,19 +43,24 @@ export class PostsController {
     return this.postsService.getPost(id)
   };
 
+  @MessagePattern({cmd: PostsCommand.GET_POSTS})
+  async getPosts() {
+    return this.postsService.getPosts()
+  }
+
   @MessagePattern({cmd: PostsCommand.ADD_COMMENT})
-  async addComment(@Payload() data: CommentDto) {
+  async addComment(@Payload() data) {
     return this.postsService.addComment(data)
   }
 
   @MessagePattern({cmd: PostsCommand.DELETE_COMMENT})
-  async deleteComment(@Payload() id: string) {
+  async deleteComment(@Payload() id: number) {
     return this.postsService.deleteComment(id)
   }
 
   @MessagePattern({cmd: PostsCommand.EDIT_COMMENT})
-  async editComment(@Payload() data: EditCommentDto) {
-    return this.postsService.editComment(data)
+  async editComment(@Payload() {data, id}) {
+    return this.postsService.editComment(data, id)
   }
 
   @MessagePattern({cmd: PostsCommand.LIKE_POST})
