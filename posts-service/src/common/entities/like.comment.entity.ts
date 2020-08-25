@@ -3,16 +3,16 @@ import {BaseEntity} from "./base.entity";
 
 import {Comment} from "./";
 
-@Entity({name: 'likes'})
+@Entity({name: 'LikeComment'})
 export class LikeComment extends BaseEntity<LikeComment> {
 
   @Column()
-  commentId: string;
+  commentId: number;
 
   @Column()
-  userId: string;
+  userId: number;
 
-  @ManyToOne(type => Comment, post => post.likes)
+  @ManyToOne(type => Comment, comment => comment.likes)
   @JoinColumn({name: 'commentId'})
   comment: Comment;
 }

@@ -18,12 +18,12 @@ export class Comment extends BaseEntity<Comment> {
   @ManyToOne(type => Post, post => post.comment)
   post: Post;
 
-  @OneToMany(type => Comment, childs => childs.parent)
-  childs: Comment[];
-
   @ManyToOne(type => Comment, parent => parent.childs)
   @JoinColumn({name: 'parentId'})
   parent: Comment;
+
+  @OneToMany(type => Comment, childs => childs.parent)
+  childs: Comment[];
 
   @OneToMany(type => LikeComment, likes => likes.comment)
   likes: LikeComment[];

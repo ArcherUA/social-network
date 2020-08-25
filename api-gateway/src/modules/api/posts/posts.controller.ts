@@ -43,14 +43,14 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Delete('delete/:id')
   @ApiOperation({title: 'Delete post'})
-  async deletePost(@Param('id') id: string) {
+  async deletePost(@Param('id') id: number) {
     return await this.postsService.deletePost(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('post/:id')
   @ApiOperation({title: 'Get post'})
-  async getPost(@Param('id') id: string) {
+  async getPost(@Param('id') id: number) {
     return await this.postsService.getPost(id);
   }
 
@@ -88,22 +88,31 @@ export class PostsController {
   @Put('like/:id')
   @ApiOperation({title: 'Like post'})
   async likePost(
-    @Param('id') id: string,
-    @Body() userId: string) {
+    @Param('id') id: number,
+    @Body() userId: number) {
     return await this.postsService.likePost(id, userId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Put('likeComment/:id')
+  @ApiOperation({title: 'Like comment'})
+  async likeComment(
+    @Param('commentId') commentId: number,
+    @Body() userId: number) {
+    return await this.postsService.likeComment(commentId, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get-like-list-comment/:id')
   @ApiOperation({title: 'Get like list comment'})
-  async getLikeListComment(@Param('id') id: string) {
+  async getLikeListComment(@Param('id') id: number) {
     return await this.postsService.getLikeListComment(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get-like-list-post/:id')
   @ApiOperation({title: 'Get like list post'})
-  async getLikeListPost(@Param('id') id: string) {
+  async getLikeListPost(@Param('id') id: number) {
     return await this.postsService.getLikeListPost(id);
   }
 }

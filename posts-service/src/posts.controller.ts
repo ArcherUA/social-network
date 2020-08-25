@@ -4,12 +4,6 @@ import {ClientProxy, MessagePattern, Payload} from '@nestjs/microservices';
 
 import {PostsCommand} from './common/enums/posts.command.enums'
 
-import {
-  CreatePostDto,
-  EditPostDto,
-  CommentDto,
-  EditCommentDto
-} from './dto';
 import {PostsService} from "./posts.service";
 
 @Injectable()
@@ -24,22 +18,22 @@ export class PostsController {
   }
 
   @MessagePattern({cmd: PostsCommand.NEW_POST})
-  async newPost(@Payload() data: CreatePostDto) {
+  async newPost(@Payload() data) {
     return this.postsService.newPost(data)
   };
 
   @MessagePattern({cmd: PostsCommand.EDIT_POST})
-  async editPost(@Payload() data: EditPostDto) {
+  async editPost(@Payload() data) {
     return this.postsService.editPost(data)
   };
 
   @MessagePattern({cmd: PostsCommand.DELETE_POST})
-  async deletePost(@Payload() id: string) {
+  async deletePost(@Payload() id: number) {
     return this.postsService.deletePost(id)
   };
 
   @MessagePattern({cmd: PostsCommand.GET_POST})
-  async getPost(@Payload() id: string) {
+  async getPost(@Payload() id: number) {
     return this.postsService.getPost(id)
   };
 
@@ -49,7 +43,7 @@ export class PostsController {
   }
 
   @MessagePattern({cmd: PostsCommand.ADD_COMMENT})
-  async addComment(@Payload() data: CommentDto) {
+  async addComment(@Payload() data) {
     return this.postsService.addComment(data)
   }
 
@@ -69,13 +63,18 @@ export class PostsController {
     return this.postsService.likePost(postId, userId)
   }
 
+  @MessagePattern({cmd: PostsCommand.LIKE_COMMENT})
+  async likeComment(@Payload() {commentId, userId}) {
+    return this.postsService.likeComment(commentId, userId)
+  }
+
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_COMMENT})
-  async getLikeListComment(@Payload() id: string) {
+  async getLikeListComment(@Payload() id: number) {
     return this.postsService.getLikeListComment(id)
   }
 
   @MessagePattern({cmd: PostsCommand.GET_LIKE_LIST_POST})
-  async getLikeListPost(@Payload() id: string) {
+  async getLikeListPost(@Payload() id: number) {
     return this.postsService.getLikeListPost(id)
   }
 }

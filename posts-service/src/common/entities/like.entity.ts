@@ -7,10 +7,10 @@ import {Post} from "./post.entity";
 export class Like extends BaseEntity<Like> {
 
   @Column()
-  postId: string;
+  postId: number;
 
   @Column()
-  userId: string;
+  userId: number;
 
   @ManyToOne(type => Post, post => post.likes)
   @JoinColumn({name: 'postId'})

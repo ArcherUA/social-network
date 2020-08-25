@@ -9,14 +9,14 @@ import {
   RMQ_DISTRIBUTOR_PORT
 } from "./config";
 import {POSTS_DB_CONFIG} from "./config/orm.config";
-import {Post, Like, Comment} from "./common/entities";
+import {Post, Like, Comment, LikeComment} from "./common/entities";
 import {PostsController} from "./posts.controller";
 import {PostsService} from "./posts.service";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like, Comment]}),
-    TypeOrmModule.forFeature([Post, Like, Comment]),
+    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like,LikeComment ,Comment]}),
+    TypeOrmModule.forFeature([Post, Like,LikeComment, Comment]),
 
     ClientsModule.register([
       {
