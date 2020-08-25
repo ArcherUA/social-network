@@ -1,7 +1,7 @@
 import {Entity, Column, OneToMany} from 'typeorm';
 import {BaseEntity} from "./base.entity";
 
-import {Like, Comment} from './index'
+import {Like, Comment} from './';
 
 @Entity({name: 'posts'})
 export class Post extends BaseEntity<Post> {

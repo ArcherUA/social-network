@@ -49,7 +49,7 @@ export class PostsController {
   }
 
   @MessagePattern({cmd: PostsCommand.ADD_COMMENT})
-  async addComment(@Payload() data) {
+  async addComment(@Payload() data: CommentDto) {
     return this.postsService.addComment(data)
   }
 
@@ -58,6 +58,7 @@ export class PostsController {
     return this.postsService.deleteComment(id)
   }
 
+  // ADD EDIT_COMMENT_DTO
   @MessagePattern({cmd: PostsCommand.EDIT_COMMENT})
   async editComment(@Payload() {data, id}) {
     return this.postsService.editComment(data, id)

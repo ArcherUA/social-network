@@ -1,7 +1,7 @@
 import {Entity, Column, OneToMany, JoinColumn, ManyToOne} from 'typeorm';
 import {BaseEntity} from "./base.entity";
 
-import {Post} from './index';
+import {LikeComment, Post} from './';
 
 @Entity({name: 'comment'})
 export class Comment extends BaseEntity<Comment> {
@@ -24,4 +24,7 @@ export class Comment extends BaseEntity<Comment> {
   @ManyToOne(type => Comment, parent => parent.childs)
   @JoinColumn({name: 'parentId'})
   parent: Comment;
+
+  @OneToMany(type => LikeComment, likes => likes.comment)
+  likes: LikeComment[];
 }
