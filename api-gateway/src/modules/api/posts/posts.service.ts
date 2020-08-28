@@ -12,82 +12,62 @@ export class PostsService {
   }
 
   async newPost(data) {
-    const pattern = {cmd: PostsCommand.NEW_POST};
-
     return this.rmqClient
-      .send(pattern, data)
+      .send({cmd: PostsCommand.NEW_POST}, data)
   }
 
   async editPost(data,postId) {
-    const pattern = {cmd: PostsCommand.EDIT_POST};
-
     return this.rmqClient
-      .send(pattern, {data,postId})
+      .send({cmd: PostsCommand.EDIT_POST}, {data,postId})
   }
 
   async deletePost(id: number) {
-    const pattern = {cmd: PostsCommand.DELETE_POST};
-
     return this.rmqClient
-      .send(pattern, id)
+      .send({cmd: PostsCommand.DELETE_POST}, id)
   }
 
   async getPost(id: number) {
-    const pattern = {cmd: PostsCommand.GET_POST};
     return this.rmqClient
-      .send(pattern, id)
+      .send({cmd: PostsCommand.GET_POST}, id)
   }
 
   async getPosts() {
-    const pattern = {cmd: PostsCommand.GET_POSTS};
     return this.rmqClient
-      .send(pattern, {})
+      .send({cmd: PostsCommand.GET_POSTS}, {})
   }
 
   async addComment(data) {
-    const pattern = {cmd: PostsCommand.ADD_COMMENT};
-
     return this.rmqClient
-      .send(pattern, data);
+      .send({cmd: PostsCommand.ADD_COMMENT}, data);
   }
 
   async deleteComment(id: number) {
-    const pattern = {cmd: PostsCommand.DELETE_COMMENT};
-
     return this.rmqClient
-      .send(pattern, id);
+      .send({cmd: PostsCommand.DELETE_COMMENT}, id);
   }
 
   async editComment(data, id: number) {
-    const pattern = {cmd: PostsCommand.EDIT_COMMENT};
     return this.rmqClient
-      .send(pattern, {data, id});
+      .send({cmd: PostsCommand.EDIT_COMMENT}, {data, id});
   }
 
   async likeComment(commentId: number, userId: number) {
-    const pattern = {cmd: PostsCommand.LIKE_COMMENT};
-
     return this.rmqClient
-      .send(pattern, {commentId, userId});
+      .send({cmd: PostsCommand.LIKE_COMMENT}, {commentId, userId});
   }
 
   async likePost(postId: number, userId: number) {
-    const pattern = {cmd: PostsCommand.LIKE_POST};
     return this.rmqClient
-      .send(pattern, {postId, userId});
+      .send({cmd: PostsCommand.LIKE_POST}, {postId, userId});
   }
 
   async getLikeListPost(id: number) {
-    const pattern = {cmd: PostsCommand.GET_LIKE_LIST_POST};
-
     return this.rmqClient
-      .send(pattern, id);
+      .send({cmd: PostsCommand.GET_LIKE_LIST_POST}, id);
   }
 
   async getLikeListComment(id: number) {
-    const pattern = {cmd: PostsCommand.GET_LIKE_LIST_COMMENT};
-
     return this.rmqClient
-      .send(pattern, id);
+      .send({cmd: PostsCommand.GET_LIKE_LIST_COMMENT}, id);
   }
 }
