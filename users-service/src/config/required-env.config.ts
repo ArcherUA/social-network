@@ -24,5 +24,5 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   RABBITMQ_PASSWORD: Joi.string().default('astra_password'),
 
   JWT_SECRET: Joi.string(),
-  EXPIRES_IN: Joi.string()
+  EXPIRES_IN: Joi.string(),
 });

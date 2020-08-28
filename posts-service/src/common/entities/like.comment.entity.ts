@@ -1,9 +1,9 @@
-import {Entity, JoinColumn, Column, ManyToOne} from 'typeorm';
-import {BaseEntity} from "./base.entity";
+import { Entity, JoinColumn, Column, ManyToOne } from 'typeorm';
+import { BaseEntity } from "./base.entity";
 
-import {Comment} from "./";
+import { Comment } from "./";
 
-@Entity({name: 'LikeComment'})
+@Entity({ name: 'LikeComment' })
 export class LikeComment extends BaseEntity<LikeComment> {
 
   @Column()
@@ -13,6 +13,6 @@ export class LikeComment extends BaseEntity<LikeComment> {
   userId: number;
 
   @ManyToOne(type => Comment, comment => comment.likes)
-  @JoinColumn({name: 'commentId'})
+  @JoinColumn({ name: 'commentId' })
   comment: Comment;
 }

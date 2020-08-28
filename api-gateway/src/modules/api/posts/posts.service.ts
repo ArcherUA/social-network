@@ -1,7 +1,7 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {ClientProxy} from '@nestjs/microservices';
 
-import {PostsCommand} from '../../../common/enums/posts.command.enums'
+import {PostsCommand} from '../../../common/enums/posts.command.enums';
 
 @Injectable()
 export class PostsService {
@@ -13,27 +13,27 @@ export class PostsService {
 
   async newPost(data) {
     return this.rmqClient
-      .send({cmd: PostsCommand.NEW_POST}, data)
+      .send({cmd: PostsCommand.NEW_POST}, data);
   }
 
   async editPost(data,postId) {
     return this.rmqClient
-      .send({cmd: PostsCommand.EDIT_POST}, {data,postId})
+      .send({cmd: PostsCommand.EDIT_POST}, {data,postId});
   }
 
   async deletePost(id: number) {
     return this.rmqClient
-      .send({cmd: PostsCommand.DELETE_POST}, id)
+      .send({cmd: PostsCommand.DELETE_POST}, id);
   }
 
   async getPost(id: number) {
     return this.rmqClient
-      .send({cmd: PostsCommand.GET_POST}, id)
+      .send({cmd: PostsCommand.GET_POST}, id);
   }
 
   async getPosts() {
     return this.rmqClient
-      .send({cmd: PostsCommand.GET_POSTS}, {})
+      .send({cmd: PostsCommand.GET_POSTS}, {});
   }
 
   async addComment(data) {

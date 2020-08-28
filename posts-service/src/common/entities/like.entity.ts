@@ -1,9 +1,9 @@
-import {Entity, JoinColumn, Column, ManyToOne} from 'typeorm';
-import {BaseEntity} from "./base.entity";
+import { Entity, JoinColumn, Column, ManyToOne } from 'typeorm';
+import { BaseEntity } from "./base.entity";
 
-import {Post} from "./post.entity";
+import { Post } from "./post.entity";
 
-@Entity({name: 'likes'})
+@Entity({ name: 'likes' })
 export class Like extends BaseEntity<Like> {
 
   @Column()
@@ -13,6 +13,6 @@ export class Like extends BaseEntity<Like> {
   userId: number;
 
   @ManyToOne(type => Post, post => post.likes)
-  @JoinColumn({name: 'postId'})
+  @JoinColumn({ name: 'postId' })
   post: Post;
 }

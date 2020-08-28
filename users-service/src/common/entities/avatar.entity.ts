@@ -1,10 +1,9 @@
-import {Entity, Column, ManyToOne, JoinColumn} from 'typeorm';
-import {BaseEntity} from "./base.entity";
-import {User} from "./users.entity";
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { BaseEntity } from './base.entity';
+import { User } from './users.entity';
 
-@Entity({name: 'avatar'})
+@Entity({ name: 'avatar' })
 export class Avatar extends BaseEntity<Avatar> {
-
   @Column()
   name: string;
 
@@ -18,8 +17,6 @@ export class Avatar extends BaseEntity<Avatar> {
   userId: number;
 
   @ManyToOne(() => User)
-  @JoinColumn({name: 'userId'})
+  @JoinColumn({ name: 'userId' })
   user: User;
-
-
 }

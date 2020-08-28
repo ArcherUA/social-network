@@ -1,5 +1,5 @@
-import {getEnv} from '../common/utils/get-env';
-import {envSchema} from './required-env.config';
+import { getEnv } from '../common/utils/get-env';
+import { envSchema } from './required-env.config';
 
 const {
   NODE_ENV,
@@ -20,7 +20,7 @@ const {
   POSTS_DB_PASSWORD,
 
   JWT_SECRET,
-  EXPIRES_IN
+  EXPIRES_IN,
 } = getEnv(envSchema);
 
 export {
@@ -42,5 +42,5 @@ export {
   POSTS_DB_PASSWORD,
 
   JWT_SECRET,
-  EXPIRES_IN
+  EXPIRES_IN,
 };

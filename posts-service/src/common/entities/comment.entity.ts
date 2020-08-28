@@ -1,9 +1,9 @@
-import {Entity, Column, OneToMany, JoinColumn, ManyToOne} from 'typeorm';
-import {BaseEntity} from "./base.entity";
+import { Entity, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
+import { BaseEntity } from "./base.entity";
 
-import {LikeComment, Post} from './';
+import { LikeComment, Post } from './';
 
-@Entity({name: 'comment'})
+@Entity({ name: 'comment' })
 export class Comment extends BaseEntity<Comment> {
 
   @Column()
@@ -12,14 +12,14 @@ export class Comment extends BaseEntity<Comment> {
   @Column()
   authorId: number;
 
-  @Column({nullable: true, default: null})
+  @Column({ nullable: true, default: null })
   parentId: number;
 
   @ManyToOne(type => Post, post => post.comment)
   post: Post;
 
   @ManyToOne(type => Comment, parent => parent.childs)
-  @JoinColumn({name: 'parentId'})
+  @JoinColumn({ name: 'parentId' })
   parent: Comment;
 
   @OneToMany(type => Comment, childs => childs.parent)

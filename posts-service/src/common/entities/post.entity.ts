@@ -1,9 +1,9 @@
-import {Entity, Column, OneToMany} from 'typeorm';
-import {BaseEntity} from "./base.entity";
+import { Entity, Column, OneToMany } from 'typeorm';
+import { BaseEntity } from "./base.entity";
 
-import {Like, Comment} from './';
+import { Like, Comment } from './';
 
-@Entity({name: 'posts'})
+@Entity({ name: 'posts' })
 export class Post extends BaseEntity<Post> {
 
   @Column()

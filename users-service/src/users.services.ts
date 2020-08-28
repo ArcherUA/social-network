@@ -1,15 +1,14 @@
-import {Inject, Injectable, UnauthorizedException} from '@nestjs/common';
-import {ClientProxy} from "@nestjs/microservices";
-import {InjectRepository} from "@nestjs/typeorm";
-import {Md5} from 'md5-typescript';
-import {Repository} from 'typeorm';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Md5 } from 'md5-typescript';
+import { Repository } from 'typeorm';
 
-import {User} from "./common/entities/users.entity";
-import {TokenService} from './token/token.service';
+import { User } from './common/entities/users.entity';
+import { TokenService } from './token/token.service';
 
 @Injectable()
 export class UsersService {
-
   private readonly EMAIL_ALREADY_REGISTER = 'Email is already registered';
   private readonly INVALID_USER_ID = 'Invalid user id';
   private readonly INVALID_EMAIL = 'Invalid email';
@@ -20,8 +19,7 @@ export class UsersService {
     @InjectRepository(User)
     protected readonly userRepository: Repository<User>,
     protected readonly tokenService: TokenService,
-  ) {
-  };
+  ) {}
 
   async register(user) {
     try {
@@ -30,8 +28,8 @@ export class UsersService {
 
       const candidate = await this.userRepository.findOne({
         where: {
-          email: user.email
-        }
+          email: user.email,
+        },
       });
       if (!candidate) {
         return await this.userRepository.save(newUser);
@@ -45,13 +43,13 @@ export class UsersService {
   async findOneByEmail(email) {
     const user = await this.userRepository.findOne({
       where: {
-        email: email
-      }
-    })
+        email: email,
+      },
+    });
     if (user) {
-      return user
+      return user;
     }
-    return this.INVALID_EMAIL
+    return this.INVALID_EMAIL;
   }
 
   async getUser(id: string) {
@@ -61,7 +59,7 @@ export class UsersService {
   async updateUserData(user) {
     const verifyUser = await this.userRepository.findOne(user.id);
     if (verifyUser) {
-      const candidate = {...user};
+      const candidate = { ...user };
       return await this.userRepository.update(user.id, candidate);
     }
     return this.INVALID_USER_ID;
@@ -75,25 +73,25 @@ export class UsersService {
     const verifyUser = await this.userRepository.findOne({
       where: {
         email: email,
-      }
-    })
+      },
+    });
     if (!verifyUser) {
       return this.INVALID_PAS_EMAIL;
-    };
+    }
     if (!(Md5.init(password) === verifyUser.password)) {
       return this.INVALID_PAS_EMAIL;
-    };
+    }
     return this.tokenService.createToken(verifyUser.id.toString(), email);
   }
 
   async findUsersByArrayId(ids) {
-    console.log(ids)
+    console.log(ids);
     const users = await this.userRepository
       .createQueryBuilder()
-      .where("id IN (:...id)", {id: ids})
+      .where('id IN (:...id)', { id: ids })
       .getMany();
 
     // console.log('USR SRVC',ids)
-    return users
+    return users;
   }
 }

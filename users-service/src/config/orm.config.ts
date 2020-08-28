@@ -1,11 +1,10 @@
-import {ConnectionOptions} from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 import {
   USERS_DB_HOST,
   USERS_DB_PORT,
   USERS_DB_NAME,
   USERS_DB_USER,
   USERS_DB_PASSWORD,
-
 } from './index';
 
 export const USERS_DB_CONFIG = {

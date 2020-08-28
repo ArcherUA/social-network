@@ -1,5 +1,5 @@
-import {IsNumber, IsString} from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { IsNumber, IsString } from 'class-validator';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
 

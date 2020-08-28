@@ -1,4 +1,4 @@
-import {ConnectionOptions} from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 import {
   POSTS_DB_HOST,
   POSTS_DB_PORT,

@@ -18,7 +18,6 @@ import {
   EditCommentDto,
   EditPostDto
 } from "../dto";
-import {UsersService} from "../users";
 
 @Controller('posts')
 @ApiUseTags('posts')
@@ -62,7 +61,7 @@ export class PostsController {
   @Get('get-posts')
   @ApiOperation({title: 'Get all post'})
   async getPosts() {
-    return await this.postsService.getPosts()
+    return await this.postsService.getPosts();
   }
 
   @UseGuards(AuthGuard('jwt'))
