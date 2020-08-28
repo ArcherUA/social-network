@@ -25,17 +25,4 @@ export class RegisterUserDto {
     example: 'Petro Ivanov',
   })
   fullName: string;
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

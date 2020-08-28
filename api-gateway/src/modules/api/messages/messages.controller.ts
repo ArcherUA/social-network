@@ -1,18 +1,15 @@
-import {Controller, Post, Get} from '@nestjs/common';
-import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
+import { Controller, Post, Get } from '@nestjs/common';
+import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import {MessagesService} from './messages.service';
+import { MessagesService } from './messages.service';
 
 // import { MessagingGateway } from '../socket-gateway/socket.gateway'
 @Controller('message')
 @ApiUseTags('message')
 export class MessagesController {
-
   constructor(
-    private readonly messagesService: MessagesService,
-    // private readonly MessagingGateway:MessagingGateway,
-  ) {
-  }
+    private readonly messagesService: MessagesService, // private readonly MessagingGateway:MessagingGateway,
+  ) {}
 
   // @Post()
   // @ApiOperation({title: 'Staring messaging'})

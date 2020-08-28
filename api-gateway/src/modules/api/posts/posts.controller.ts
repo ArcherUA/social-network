@@ -7,114 +7,101 @@ import {
   Param,
   UseGuards,
   Body,
-} from "@nestjs/common";
-import {ApiOperation, ApiUseTags} from '@nestjs/swagger';
-import {AuthGuard} from "@nestjs/passport";
+} from '@nestjs/common';
+import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
-import {PostsService} from './posts.service';
-import {
-  CommentDto,
-  CreatePostDto,
-  EditCommentDto,
-  EditPostDto
-} from "../dto";
+import { PostsService } from './posts.service';
+import { CommentDto, CreatePostDto, EditCommentDto, EditPostDto } from '../dto';
 
 @Controller('posts')
 @ApiUseTags('posts')
 export class PostsController {
-
-  constructor(private readonly postsService: PostsService) {
-  }
+  constructor(private readonly postsService: PostsService) {}
 
   @UseGuards(AuthGuard('jwt'))
   @Post('create')
-  @ApiOperation({title: 'Create new post'})
+  @ApiOperation({ title: 'Create new post' })
   async newPost(@Body() data: CreatePostDto) {
     return await this.postsService.newPost(data);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('edit/:postId')
-  @ApiOperation({title: 'Edit post'})
-  async editPost(
-    @Body() data: EditPostDto,
-    @Param('postId') postId: number
-  ) {
-    return await this.postsService.editPost(data,postId);
+  @ApiOperation({ title: 'Edit post' })
+  async editPost(@Body() data: EditPostDto, @Param('postId') postId: number) {
+    return await this.postsService.editPost(data, postId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('delete/:id')
-  @ApiOperation({title: 'Delete post'})
+  @ApiOperation({ title: 'Delete post' })
   async deletePost(@Param('id') id: number) {
     return await this.postsService.deletePost(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('post/:id')
-  @ApiOperation({title: 'Get post'})
+  @ApiOperation({ title: 'Get post' })
   async getPost(@Param('id') id: number) {
     return await this.postsService.getPost(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get-posts')
-  @ApiOperation({title: 'Get all post'})
+  @ApiOperation({ title: 'Get all post' })
   async getPosts() {
     return await this.postsService.getPosts();
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('add-comment')
-  @ApiOperation({title: 'Add comment'})
+  @ApiOperation({ title: 'Add comment' })
   async addComment(@Body() data: CommentDto) {
     return await this.postsService.addComment(data);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('delete-comment/:id')
-  @ApiOperation({title: 'Delete comment'})
+  @ApiOperation({ title: 'Delete comment' })
   async deleteComment(@Param('id') id: number) {
     return await this.postsService.deleteComment(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('edit-comment/:id')
-  @ApiOperation({title: 'Edit comment'})
-  async editComment(
-    @Param('id') id: number,
-    @Body() data: EditCommentDto) {
+  @ApiOperation({ title: 'Edit comment' })
+  async editComment(@Param('id') id: number, @Body() data: EditCommentDto) {
     return await this.postsService.editComment(data, id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('like/:id')
-  @ApiOperation({title: 'Like post'})
-  async likePost(
-    @Param('id') id: number,
-    @Body() userId: number) {
+  @ApiOperation({ title: 'Like post' })
+  async likePost(@Param('id') id: number, @Body() userId: number) {
     return await this.postsService.likePost(id, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Put('like-comment/:commentId')
-  @ApiOperation({title: 'Like comment'})
+  @ApiOperation({ title: 'Like comment' })
   async likeComment(
     @Param('commentId') commentId: number,
-    @Body() userId: number) {
+    @Body() userId: number,
+  ) {
     return await this.postsService.likeComment(commentId, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get-like-list-comment/:id')
-  @ApiOperation({title: 'Get like list comment'})
+  @ApiOperation({ title: 'Get like list comment' })
   async getLikeListComment(@Param('id') id: number) {
     return await this.postsService.getLikeListComment(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('get-like-list-post/:id')
-  @ApiOperation({title: 'Get like list post'})
+  @ApiOperation({ title: 'Get like list post' })
   async getLikeListPost(@Param('id') id: number) {
     return await this.postsService.getLikeListPost(id);
   }

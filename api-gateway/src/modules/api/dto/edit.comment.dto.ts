@@ -1,5 +1,5 @@
-import {IsString} from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { IsString } from 'class-validator';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class EditCommentDto {
   @IsString()
@@ -9,5 +9,4 @@ export class EditCommentDto {
     example: 'Very wonderful day',
   })
   content: string;
-
 }

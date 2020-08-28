@@ -1,8 +1,7 @@
-import {IsNumber, IsString} from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { IsNumber, IsString } from 'class-validator';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class EditPostDto {
-
   @IsString()
   @ApiModelProperty({
     description: 'Post content',
@@ -10,5 +9,4 @@ export class EditPostDto {
     example: 'Lorem lorem lorem',
   })
   content: string;
-
 }

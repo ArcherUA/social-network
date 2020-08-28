@@ -1,4 +1,4 @@
-import {ConnectionOptions} from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 // import {
 //   CONVERTOR_DB_HOST,
 //   CONVERTOR_DB_PORT,
