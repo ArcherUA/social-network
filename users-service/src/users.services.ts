@@ -85,4 +85,15 @@ export class UsersService {
     };
     return this.tokenService.createToken(verifyUser.id.toString(), email);
   }
+
+  async findUsersByArrayId(ids) {
+    console.log(ids)
+    const users = await this.userRepository
+      .createQueryBuilder()
+      .where("id IN (:...id)", {id: ids})
+      .getMany();
+
+    // console.log('USR SRVC',ids)
+    return users
+  }
 }

@@ -10,7 +10,7 @@ import {
   RABBITMQ_USERNAME,
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT,
-} from './config/index';
+} from './config';
 import {User} from "./common/entities/users.entity";
 import {Avatar} from "./common/entities/avatar.entity";
 import {TokenService} from "./token/token.service";
@@ -22,6 +22,18 @@ import {TokenService} from "./token/token.service";
 
     ClientsModule.register([
       {
+        name: 'POSTS_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          noAck: false,
+          urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
+          queue: 'posts_queue',
+          queueOptions: {
+            durable: true,
+            noAck: true,
+          },
+        },
+      }, {
         name: 'USERS_SERVICE',
         transport: Transport.RMQ,
         options: {
@@ -33,8 +45,9 @@ import {TokenService} from "./token/token.service";
             noAck: true,
           },
         },
-      },
-    ]),],
+      }
+    ]),
+  ],
   controllers: [UsersController],
   providers: [UsersService, TokenService],
 })

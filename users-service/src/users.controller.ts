@@ -44,4 +44,8 @@ export class UsersController {
   async findOneByEmail(@Payload() {email}) {
     return await this.usersService.findOneByEmail(email)
   }
+  @MessagePattern({cmd: UsersCommand.SEND_ARRAY_USER_ID})
+  async findUsersByArrayId(@Payload() ids) {
+    return await this.usersService.findUsersByArrayId(ids)
+  }
 }

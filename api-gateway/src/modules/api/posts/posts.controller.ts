@@ -18,6 +18,7 @@ import {
   EditCommentDto,
   EditPostDto
 } from "../dto";
+import {UsersService} from "../users";
 
 @Controller('posts')
 @ApiUseTags('posts')
@@ -79,7 +80,7 @@ export class PostsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('edit-comment/:id')
+  @Put('edit-comment/:id')
   @ApiOperation({title: 'Edit comment'})
   async editComment(
     @Param('id') id: number,

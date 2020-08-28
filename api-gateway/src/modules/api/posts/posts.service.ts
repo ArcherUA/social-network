@@ -40,7 +40,6 @@ export class PostsService {
 
   async getPosts() {
     const pattern = {cmd: PostsCommand.GET_POSTS};
-
     return this.rmqClient
       .send(pattern, {})
   }

@@ -4,6 +4,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Repository, getRepository} from 'typeorm';
 
 import {Post, Like, Comment, LikeComment} from "./common/entities";
+import {PostsCommand} from "./common/enums/posts.command.enums";
 
 @Injectable()
 export class PostsService {
@@ -19,7 +20,9 @@ export class PostsService {
     protected readonly commentRepository: Repository<Comment>,
     @InjectRepository(LikeComment)
     protected readonly likeCommentRepository: Repository<LikeComment>,
-    @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy) {
+    @Inject('POSTS_SERVICE') private readonly rmqClient: ClientProxy,
+    @Inject('USERS_SERVICE') private readonly userRmqClient: ClientProxy
+  ) {
 
   }
 
@@ -28,7 +31,7 @@ export class PostsService {
     return await this.postRepository.save(post)
   }
 
-  async editPost(data,postId) {
+  async editPost(data, postId) {
     const post = await this.postRepository.findOne(postId)
     if (post) {
       const updatePost = {...data}
@@ -38,14 +41,25 @@ export class PostsService {
   }
 
   async deletePost(id: number) {
-    return await this.postRepository.delete(id)
+    return await this.postRepository.delete(id);
   }
 
   async getPost(id: number) {
-    return await this.postRepository.findOne({
+    const post = await this.postRepository.findOne({
       where: {id: id},
       relations: ['likes', 'comment']
     });
+    const ids = {};
+    // ADD AUTHOR POST ID
+    ids[post.authorId] = post.authorId
+    await post.likes.forEach(element => ids[element.userId] = element.userId);
+    await post.comment.forEach(element => ids[element.authorId] = element.authorId);
+
+    const users = await this.userRmqClient
+      .send({cmd: PostsCommand.SEND_ARRAY_USER_ID}, Object.values(ids));
+    // console.log(post)
+    return users
+    // return {users: users,post: post}
   }
 
   async getPosts() {

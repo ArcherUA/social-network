@@ -15,8 +15,8 @@ import {PostsService} from "./posts.service";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like,LikeComment ,Comment]}),
-    TypeOrmModule.forFeature([Post, Like,LikeComment, Comment]),
+    TypeOrmModule.forRoot({...POSTS_DB_CONFIG, entities: [Post, Like, LikeComment, Comment]}),
+    TypeOrmModule.forFeature([Post, Like, LikeComment, Comment]),
 
     ClientsModule.register([
       {
@@ -32,7 +32,19 @@ import {PostsService} from "./posts.service";
           },
         },
       },
-    ])
+      {
+        name: 'USERS_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [`amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`],
+          queue: 'users_queue',
+          queueOptions: {
+            durable: false,
+            noAck: true,
+          },
+        },
+      },]
+    ),
   ],
   controllers: [PostsController],
   providers: [PostsService],
