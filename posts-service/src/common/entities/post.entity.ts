@@ -1,20 +1,25 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { BaseEntity } from "./base.entity";
+import { BaseEntity } from './base.entity';
 
 import { Like, Comment } from './';
 
 @Entity({ name: 'posts' })
 export class Post extends BaseEntity<Post> {
-
   @Column()
   content: string;
 
   @Column()
   authorId: number;
 
-  @OneToMany(type => Comment, comment => comment.post)
+  @OneToMany(
+    type => Comment,
+    comment => comment.post,
+  )
   comment: Comment[];
 
-  @OneToMany(type => Like, likes => likes.post)
+  @OneToMany(
+    type => Like,
+    likes => likes.post,
+  )
   likes: Like[];
 }

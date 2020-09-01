@@ -1,4 +1,10 @@
-import { Controller, Inject, Injectable } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Inject,
+  Injectable,
+  UseInterceptors,
+} from '@nestjs/common';
 
 import { ApiUseTags } from '@nestjs/swagger';
 import { ClientProxy, MessagePattern, Payload } from '@nestjs/microservices';
@@ -45,6 +51,7 @@ export class UsersController {
     return await this.usersService.findOneByEmail(email);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @MessagePattern({ cmd: UsersCommand.SEND_ARRAY_USER_ID })
   async findUsersByArrayId(@Payload() ids) {
     return await this.usersService.findUsersByArrayId(ids);

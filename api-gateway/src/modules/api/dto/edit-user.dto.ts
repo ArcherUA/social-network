@@ -1,11 +1,11 @@
 import { IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class RegisterUserDto {
+export class EditUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Full name of new user',
-    required: true,
+    required: false,
     example: 'Petro Ivanov',
   })
   fullName: string;
@@ -13,7 +13,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Password for new user',
-    required: true,
+    required: false,
     example: 'qwerty123',
   })
   password: string;
@@ -21,7 +21,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Email of new user',
-    required: true,
+    required: false,
     example: 'ivanov@mail.com',
   })
   email: string;
@@ -29,7 +29,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Phone number of new user',
-    required: true,
+    required: false,
     example: '023509723509',
   })
   phoneNumber: string;
@@ -37,7 +37,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Date of birth new user',
-    required: true,
+    required: false,
     example: '20.02.1989',
   })
   dateOfBirth: string;
@@ -45,7 +45,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Adress of new user',
-    required: true,
+    required: false,
     example: 'Ukraine',
   })
   adres: string;
@@ -53,7 +53,7 @@ export class RegisterUserDto {
   @IsString()
   @ApiModelProperty({
     description: 'Avatar of new user',
-    required: true,
+    required: false,
     example: 'Url',
   })
   avatarId: string;

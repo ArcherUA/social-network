@@ -26,11 +26,8 @@ export class UsersService {
     return this.rmqClient.send({ cmd: UsersCommand.DELETE_USER }, id);
   }
 
-  async loginUser(email, password) {
-    return this.rmqClient.send(
-      { cmd: UsersCommand.LOGIN_USER },
-      { email, password },
-    );
+  async loginUser(userData) {
+    return this.rmqClient.send({ cmd: UsersCommand.LOGIN_USER }, userData);
   }
 
   async findOneByEmail(email) {

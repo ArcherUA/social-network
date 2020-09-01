@@ -53,21 +53,16 @@ export class PostsService {
     const ids = {};
 
     ids[post.authorId] = post.authorId;
-    await post.likes.forEach(
-      (element) => (ids[element.userId] = element.userId),
-    );
+    await post.likes.forEach(element => (ids[element.userId] = element.userId));
     await post.comment.forEach(
-      (element) => (ids[element.authorId] = element.authorId),
+      element => (ids[element.authorId] = element.authorId),
     );
 
-    const users = await this.userRmqClient.send(
-      { cmd: PostsCommand.SEND_ARRAY_USER_ID },
-      Object.values(ids),
-    );
-    // console.log(post)
+    const users = await this.userRmqClient
+      .send({ cmd: PostsCommand.SEND_ARRAY_USER_ID }, Object.values(ids))
+      .toPromise();
 
-    // return users;
-    return { users: users, post: post };
+    return { post, users };
   }
 
   async getPosts() {

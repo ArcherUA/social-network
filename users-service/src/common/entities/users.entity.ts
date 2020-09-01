@@ -1,15 +1,18 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Avatar } from './avatar.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity<User> {
   @Column()
   fullName: string;
 
+  @Exclude()
   @Column()
   password: string;
 
+  @Exclude()
   @Column()
   email: string;
 
@@ -23,7 +26,7 @@ export class User extends BaseEntity<User> {
   adres: string;
 
   @Column({ nullable: true })
-  avatarId: number;
+  avatarId: string;
 
   @OneToMany(
     () => Avatar,

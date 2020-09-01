@@ -85,13 +85,11 @@ export class UsersService {
   }
 
   async findUsersByArrayId(ids) {
-    console.log(ids);
     const users = await this.userRepository
       .createQueryBuilder()
       .where('id IN (:...id)', { id: ids })
       .getMany();
 
-    // console.log('USR SRVC',ids)
     return users;
   }
 }

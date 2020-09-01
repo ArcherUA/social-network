@@ -3,17 +3,18 @@ import {
   Post,
   Get,
   Delete,
-  Req,
   Param,
   Inject,
   UseGuards,
+  Body,
 } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
 
-import { Request } from 'express';
 import { UsersService } from './users.service';
+import { EditUserDto, RegisterUserDto } from '../dto';
+import { LoginDto } from '../dto/login.dto';
 
 @Controller('users')
 @ApiUseTags('users')
@@ -25,8 +26,7 @@ export class UsersController {
 
   @Post('new-user')
   @ApiOperation({ title: 'Create new user' })
-  register(@Req() request: Request) {
-    const user = request.body;
+  register(@Body() user: RegisterUserDto) {
     return this.usersService.register(user);
   }
 
@@ -40,25 +40,20 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @Post('update-user-data')
   @ApiOperation({ title: 'Update user data' })
-  async updateUserData(@Req() request: Request) {
-    const user = request.body;
+  async updateUserData(@Body() user: EditUserDto) {
     return this.usersService.updateUserData(user);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete('delete-user')
+  @Delete('delete-user/:id')
   @ApiOperation({ title: 'Delete user' })
-  async deleteUser(@Req() request: Request) {
-    const id = request.body.id;
+  async deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
   }
 
   @Post('login')
   @ApiOperation({ title: 'Authentication user' })
-  async login(@Req() request: Request) {
-    const email = request.body.email;
-    const password = request.body.password;
-
-    return this.usersService.loginUser(email, password);
+  async login(@Body() userData: LoginDto) {
+    return this.usersService.loginUser(userData);
   }
 }
