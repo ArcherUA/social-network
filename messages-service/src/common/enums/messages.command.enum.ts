@@ -1,0 +1,5 @@
+export enum MessagesCommand {
+  SAVE_MESSAGE_TO_DB = 'SAVE_MESSAGE_TO_DB',
+  SEND_ARRAY_USER_ID = 'SEND_ARRAY_USER_ID',
+  SEND_DATA = 'SEND_DATA',
+}

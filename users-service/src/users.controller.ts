@@ -1,9 +1,9 @@
 import {
-  ClassSerializerInterceptor,
-  Controller,
   Inject,
+  Controller,
   Injectable,
   UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 
 import { ApiUseTags } from '@nestjs/swagger';

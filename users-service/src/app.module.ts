@@ -37,6 +37,21 @@ import { TokenService } from './token/token.service';
         },
       },
       {
+        name: 'MESSAGES_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          noAck: false,
+          urls: [
+            `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`,
+          ],
+          queue: 'messages_queue',
+          queueOptions: {
+            durable: true,
+            noAck: true,
+          },
+        },
+      },
+      {
         name: 'USERS_SERVICE',
         transport: Transport.RMQ,
         options: {
@@ -55,5 +70,6 @@ import { TokenService } from './token/token.service';
   ],
   controllers: [UsersController],
   providers: [UsersService, TokenService],
+  exports: [UsersService],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Md5 } from 'md5-typescript';
@@ -10,7 +10,7 @@ import { TokenService } from './token/token.service';
 @Injectable()
 export class UsersService {
   private readonly EMAIL_ALREADY_REGISTER = 'Email is already registered';
-  private readonly INVALID_USER_ID = 'Invalid user id';
+  private readonly INVALID_USER = 'Invalid user';
   private readonly INVALID_EMAIL = 'Invalid email';
   private readonly INVALID_PAS_EMAIL = 'Invalid password or email';
 
@@ -31,25 +31,29 @@ export class UsersService {
           email: user.email,
         },
       });
-      if (!candidate) {
-        return await this.userRepository.save(newUser);
+      if (candidate) {
+        return this.EMAIL_ALREADY_REGISTER;
       }
-      return this.EMAIL_ALREADY_REGISTER;
+      return await this.userRepository.save(newUser);
     } catch (e) {
-      console.log(e);
+      throw new Error(e);
     }
   }
 
   async findOneByEmail(email) {
-    const user = await this.userRepository.findOne({
-      where: {
-        email: email,
-      },
-    });
-    if (user) {
-      return user;
+    try {
+      const user = await this.userRepository.findOne({
+        where: {
+          email: email,
+        },
+      });
+      if (user) {
+        return user;
+      }
+      return this.INVALID_EMAIL;
+    } catch (e) {
+      throw new Error(e);
     }
-    return this.INVALID_EMAIL;
   }
 
   async getUser(id: string) {
@@ -57,12 +61,16 @@ export class UsersService {
   }
 
   async updateUserData(user) {
-    const verifyUser = await this.userRepository.findOne(user.id);
-    if (verifyUser) {
-      const candidate = { ...user };
-      return await this.userRepository.update(user.id, candidate);
+    try {
+      const verifyUser = await this.userRepository.findOne(user.id);
+      if (verifyUser) {
+        const candidate = { ...user };
+        return await this.userRepository.update(user.id, candidate);
+      }
+      return this.INVALID_USER;
+    } catch (e) {
+      throw new Error(e);
     }
-    return this.INVALID_USER_ID;
   }
 
   async deleteUser(id: string) {
@@ -70,26 +78,32 @@ export class UsersService {
   }
 
   async loginUser(email, password) {
-    const verifyUser = await this.userRepository.findOne({
-      where: {
-        email: email,
-      },
-    });
-    if (!verifyUser) {
-      return this.INVALID_PAS_EMAIL;
+    try {
+      const verifyUser = await this.userRepository.findOne({
+        where: {
+          email: email,
+        },
+      });
+      if (!verifyUser) {
+        return this.INVALID_PAS_EMAIL;
+      }
+      if (!(Md5.init(password) === verifyUser.password)) {
+        return this.INVALID_PAS_EMAIL;
+      }
+      return this.tokenService.createToken(verifyUser.id.toString(), email);
+    } catch (e) {
+      throw new Error(e);
     }
-    if (!(Md5.init(password) === verifyUser.password)) {
-      return this.INVALID_PAS_EMAIL;
-    }
-    return this.tokenService.createToken(verifyUser.id.toString(), email);
   }
 
   async findUsersByArrayId(ids) {
-    const users = await this.userRepository
-      .createQueryBuilder()
-      .where('id IN (:...id)', { id: ids })
-      .getMany();
-
-    return users;
+    try {
+      return await this.userRepository
+        .createQueryBuilder()
+        .where('id IN (:...id)', { id: ids })
+        .getMany();
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }

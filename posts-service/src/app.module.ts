@@ -46,7 +46,7 @@ import { PostsService } from './posts.service';
           ],
           queue: 'users_queue',
           queueOptions: {
-            durable: false,
+            durable: true,
             noAck: true,
           },
         },
@@ -55,5 +55,6 @@ import { PostsService } from './posts.service';
   ],
   controllers: [PostsController],
   providers: [PostsService],
+  exports: [PostsService],
 })
 export class AppModule {}

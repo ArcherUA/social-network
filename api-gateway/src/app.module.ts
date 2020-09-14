@@ -41,9 +41,25 @@ import { JwtStrategy } from './strategies/jwt.strategy';
           },
         },
       },
+      {
+        name: 'MESSAGES_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          noAck: false,
+          urls: [
+            `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`,
+          ],
+          queue: 'messages_queue',
+          queueOptions: {
+            durable: true,
+            noAck: true,
+          },
+        },
+      },
     ]),
   ],
   controllers: [],
   providers: [JwtStrategy],
+  exports: [ApiModule],
 })
 export class AppModule {}

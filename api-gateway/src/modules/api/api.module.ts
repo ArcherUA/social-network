@@ -10,6 +10,7 @@ import {
   RMQ_DISTRIBUTOR_HOST,
   RMQ_DISTRIBUTOR_PORT,
 } from '../../config';
+import { MessageGateway } from './socket-gateway/socket.gateway';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import {
           ],
           queue: 'users_queue',
           queueOptions: {
-            durable: false,
+            durable: true,
             noAck: true,
           },
         },
@@ -37,15 +38,34 @@ import {
           ],
           queue: 'posts_queue',
           queueOptions: {
-            durable: false,
+            durable: true,
+            noAck: true,
+          },
+        },
+      },
+      {
+        name: 'MESSAGES_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [
+            `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RMQ_DISTRIBUTOR_HOST}:${RMQ_DISTRIBUTOR_PORT}`,
+          ],
+          queue: 'messages_queue',
+          queueOptions: {
+            durable: true,
             noAck: true,
           },
         },
       },
     ]),
   ],
-  controllers: [MessagesController, PostsController, UsersController],
-  providers: [MessagesService, PostsService, UsersService],
-  exports: [UsersService, PostsService, MessagesService],
+  controllers: [
+    MessagesController,
+    PostsController,
+    UsersController,
+    MessagesController,
+  ],
+  providers: [MessagesService, PostsService, UsersService, MessageGateway],
+  exports: [UsersService, PostsService, MessagesService, MessageGateway],
 })
 export class ApiModule {}

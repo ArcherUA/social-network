@@ -7,11 +7,13 @@ services:
     env_file: .env
     volumes:
       - './api-gateway:/var/www/api'
+      - './api-gateway/socket-tester.js:/var/www/api/socket-tester.js'
     build:
       context: .
       dockerfile: ./api-gateway/Dockerfile
     ports:
       - '${API_GATEWAY_PORT}:${API_GATEWAY_PORT}'
+      - '${WEBSOCKET_PORT}:${WEBSOCKET_PORT}'
   messages_service:
     image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: messages_service
@@ -67,6 +69,18 @@ services:
     environment:
       - RABBITMQ_USERNAME=astra_user
       - RABBITMQ_PASSWORD=astra_password
+  next_frontend:
+    image: 'registry.gitlab.com/devs.stargazer/nzbcloud-environment/images/alpine:latest'
+    container_name: next_frontend
+    hostname: next_frontend
+    env_file: .env
+    volumes:
+      - './next_frontend:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./next_frontend/Dockerfile
+    ports:
+      - '${NEXT_FRONTEND_PORT}:${NEXT_FRONTEND_PORT}'
   messages_db:
     container_name: messages_db
     hostname: '${MESSAGES_DB_HOST}'
@@ -114,3 +128,4 @@ services:
     command: '-p ${USERS_DB_PORT}'
 volumes:
   network_db: null
+
