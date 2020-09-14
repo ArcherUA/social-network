@@ -75,10 +75,10 @@ services:
     hostname: next_frontend
     env_file: .env
     volumes:
-      - './next_frontend:/var/www/api'
+      - './social-network-frontend:/var/www/api'
     build:
       context: .
-      dockerfile: ./next_frontend/Dockerfile
+      dockerfile: ./social-network-frontend/Dockerfile
     ports:
       - '${NEXT_FRONTEND_PORT}:${NEXT_FRONTEND_PORT}'
   messages_db:
@@ -128,4 +128,3 @@ services:
     command: '-p ${USERS_DB_PORT}'
 volumes:
   network_db: null
-

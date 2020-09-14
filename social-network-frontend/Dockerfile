@@ -1,8 +1,8 @@
 FROM registry.gitlab.com/devs.stargazer/nzbcloud-environment/images/alpine:latest
 
-ADD ./social-network-frontend/package.json ./social-network-frontend/yarn.lock ./
+ADD ./api-gateway/package.json ./api-gateway/yarn.lock ./
 RUN yarn
-ADD ./social-network-frontend/ ./
+ADD ./api-gateway/ ./
 RUN yarn build
 EXPOSE 3010
 
