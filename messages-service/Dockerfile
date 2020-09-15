@@ -2,7 +2,7 @@ FROM registry.gitlab.com/devs.stargazer/nzbcloud-environment/images/alpine:lates
 
 ADD ./messages-service/package.json ./messages-service/yarn.lock ./
 RUN yarn
-ADD ./messages-service/ ./
+COPY ./messages-service/ ./
 RUN yarn build
 EXPOSE 3010
 

@@ -1,7 +1,6 @@
 version: '3'
 services:
   api_gateway:
-    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: api_gateway
     hostname: api_gateway
     env_file: .env
@@ -15,7 +14,6 @@ services:
       - '${API_GATEWAY_PORT}:${API_GATEWAY_PORT}'
       - '${WEBSOCKET_PORT}:${WEBSOCKET_PORT}'
   messages_service:
-    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: messages_service
     hostname: messages_service
     env_file: .env
@@ -29,7 +27,6 @@ services:
     depends_on:
       - messages_db
   users_service:
-    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: users_service
     hostname: users_service
     env_file: .env
@@ -43,7 +40,6 @@ services:
     depends_on:
       - users_db
   posts_service:
-    image: 'registry.gitlab.com/devs.stargazer/videoconvertor/gateway:latest'
     container_name: posts_service
     hostname: posts_service
     env_file: .env
@@ -61,26 +57,11 @@ services:
     hostname: rabbitmq_server
     image: 'bitnami/rabbitmq:latest'
     ports:
-      - '4369:4369'
       - '5672:5672'
       - '15672:15672'
-      - '25672:25672'
-      - '35197:35197'
     environment:
       - RABBITMQ_USERNAME=astra_user
       - RABBITMQ_PASSWORD=astra_password
-  next_frontend:
-    image: 'registry.gitlab.com/devs.stargazer/nzbcloud-environment/images/alpine:latest'
-    container_name: next_frontend
-    hostname: next_frontend
-    env_file: .env
-    volumes:
-      - './social-network-frontend:/var/www/api'
-    build:
-      context: .
-      dockerfile: ./social-network-frontend/Dockerfile
-    ports:
-      - '${NEXT_FRONTEND_PORT}:${NEXT_FRONTEND_PORT}'
   messages_db:
     container_name: messages_db
     hostname: '${MESSAGES_DB_HOST}'
@@ -126,5 +107,3 @@ services:
     ports:
       - '${USERS_DB_PORT}:${USERS_DB_PORT}'
     command: '-p ${USERS_DB_PORT}'
-volumes:
-  network_db: null
