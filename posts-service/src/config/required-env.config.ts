@@ -15,7 +15,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   MEDIA_STORAGE_PATH: Joi.string(),
 
   POSTS_DB_HOST: Joi.string().default('posts_db'),
-  POSTS_DB_PORT: Joi.number().default(39756),
+  POSTS_DB_PORT: Joi.number().default(39712),
   POSTS_DB_NAME: Joi.string().default('posts_db'),
   POSTS_DB_USER: Joi.string().default('root'),
   POSTS_DB_PASSWORD: Joi.string().default('root'),
@@ -26,4 +26,3 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   JWT_SECRET: Joi.string(),
   EXPIRES_IN: Joi.string(),
 });
-

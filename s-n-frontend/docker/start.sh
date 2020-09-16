@@ -12,16 +12,13 @@ set -e
 
 #yarn migrate:run
 
-echo "Starting the api-gateway..."
+echo "Starting the converter_instance..."
 
 case "$NODE_ENV" in
-  "debug")
-      npm run start:debug
-    ;;
   "local" | "development")
-      npm run start:dev
+      npm run start
     ;;
   "production")
-      npm run start:prod
+      npm run start
     ;;
 esac

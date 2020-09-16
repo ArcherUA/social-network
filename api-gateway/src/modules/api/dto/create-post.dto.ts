@@ -15,5 +15,5 @@ export class CreatePostDto {
     description: 'Post author',
     required: true,
   })
-  author: string;
+  authorId: string;
 }

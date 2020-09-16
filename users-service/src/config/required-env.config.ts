@@ -15,7 +15,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   MEDIA_STORAGE_PATH: Joi.string(),
 
   USERS_DB_HOST: Joi.string().default('users_db'),
-  USERS_DB_PORT: Joi.number().default(40548),
+  USERS_DB_PORT: Joi.number().default(40576),
   USERS_DB_NAME: Joi.string().default('users_db'),
   USERS_DB_USER: Joi.string().default('root'),
   USERS_DB_PASSWORD: Joi.string().default('root'),

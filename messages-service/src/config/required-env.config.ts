@@ -14,7 +14,7 @@ export const envSchema: Joi.ObjectSchema = Joi.object({
   RMQ_DISTRIBUTOR_PORT: Joi.number().default(5672),
 
   MESSAGES_DB_HOST: Joi.string().default('messages_db'),
-  MESSAGES_DB_PORT: Joi.number().default(37856),
+  MESSAGES_DB_PORT: Joi.number().default(37412),
   MESSAGES_DB_NAME: Joi.string().default('messages_db'),
   MESSAGES_DB_USER: Joi.string().default('root'),
   MESSAGES_DB_PASSWORD: Joi.string().default('root'),

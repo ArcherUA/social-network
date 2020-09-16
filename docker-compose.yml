@@ -13,6 +13,18 @@ services:
     ports:
       - '${API_GATEWAY_PORT}:${API_GATEWAY_PORT}'
       - '${WEBSOCKET_PORT}:${WEBSOCKET_PORT}'
+  s_n_frontend:
+    container_name: s_n_frontend
+    hostname: s_n_frontend
+    env_file: .env
+    volumes:
+      - './s-n-frontend:/var/www/api'
+    build:
+      context: .
+      dockerfile: ./s-n-frontend/Dockerfile
+    ports:
+      - '${S_N_FRONTEND_PORT}:${S_N_FRONTEND_PORT}'
+      - '${S_N_OUT_PORT}:${S_N_OUT_PORT}'
   messages_service:
     container_name: messages_service
     hostname: messages_service
@@ -57,8 +69,11 @@ services:
     hostname: rabbitmq_server
     image: 'bitnami/rabbitmq:latest'
     ports:
+      - '4369:4369'
       - '5672:5672'
       - '15672:15672'
+      - '25672:25672'
+      - '35197:35197'
     environment:
       - RABBITMQ_USERNAME=astra_user
       - RABBITMQ_PASSWORD=astra_password

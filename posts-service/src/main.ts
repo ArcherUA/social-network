@@ -21,7 +21,7 @@ async function bootstrap() {
       ],
       queue: 'posts_queue',
       queueOptions: {
-        durable: false,
+        durable: true,
         noAck: true,
       },
     },
